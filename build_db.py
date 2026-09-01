@@ -27,6 +27,7 @@ BASE_DATA_FILE = Path("songlist_phoenix.json")
 SUPPLEMENTAL_DATA_FILE = Path("supplemental_songs.json")
 OVERRIDES_FILE = Path("chart_overrides.json")
 DB_FILE = Path("piu_songs.db")
+REMOVED_FILE = Path("removed_songs.json")
 
 
 def load_overrides(path: Path) -> dict[int, list[int]]:
@@ -46,6 +47,13 @@ def load_overrides(path: Path) -> dict[int, list[int]]:
     with open(path, encoding="utf-8") as f:
         data = json.load(f)
     return {entry["songID"]: entry["singles"] for entry in data}
+
+def load_removed(path: Path) -> set[int]:
+    if not path.exists():
+        return set()
+    with open(path, encoding="utf-8") as f:
+        data = json.load(f)
+    return {entry["songID"] for entry in data}
 
 
 def load_songs(path: Path) -> list[dict]:
@@ -68,6 +76,12 @@ def build_database():
     songs = load_songs(BASE_DATA_FILE)
     supplemental = load_songs(SUPPLEMENTAL_DATA_FILE)
     overrides = load_overrides(OVERRIDES_FILE)
+    removed = load_removed(REMOVED_FILE)
+
+    if removed:
+        print(f"Removing {len(removed)} song(s) present in the base dataset.")
+        songs = [s for s in songs if s["songID"] not in removed]
+
 
     if supplemental:
         print(f"Merging {len(supplemental)} supplemental song(s) not present in the base dataset.")

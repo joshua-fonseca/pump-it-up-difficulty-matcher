@@ -8,6 +8,8 @@
       { "chartType": "single", "level": 11, "tags": [] },
       { "chartType": "single", "level": 17, "tags": [] },
       { "chartType": "single", "level": 21, "tags": [] }
-    ]
+    ],
+    "songType": "arcade",
+    "version": "random"
   }
 ]
