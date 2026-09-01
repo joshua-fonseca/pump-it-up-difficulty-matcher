@@ -87,7 +87,9 @@ def build_database():
             song_id INTEGER PRIMARY KEY,
             title TEXT NOT NULL,
             artist TEXT,
-            bpm TEXT
+            bpm TEXT,
+            version TEXT,
+            song_type TEXT
         )
     """)
 
@@ -137,14 +139,14 @@ def build_database():
             skipped_no_singles += 1
             continue
 
-        song_rows.append((song_id, title, artist, bpm))
+        song_rows.append((song_id, title, artist, bpm, song.get("version"), song.get("songType")))
         for chart in singles:
             level = chart.get("level")
             if level is not None:
                 chart_rows.append((song_id, level))
 
     cur.executemany(
-        "INSERT OR IGNORE INTO songs (song_id, title, artist, bpm) VALUES (?, ?, ?, ?)",
+        "INSERT OR IGNORE INTO songs (song_id, title, artist, bpm, version, song_type) VALUES (?, ?, ?, ?, ?, ?)",
         song_rows,
     )
     cur.executemany(
