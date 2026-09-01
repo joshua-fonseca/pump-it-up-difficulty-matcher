@@ -1,7 +1,7 @@
 [
   {
-    "songID": 4,
-    "singles": [4, 6, 8, 18],
-    "note": "Example: S16 rebalanced to S18 (difficulty change)"
+    "songID": 704,
+    "singles": [8, 14, 18, 22],
+    "note": "Correct s13 level to s14"
   }
 ]

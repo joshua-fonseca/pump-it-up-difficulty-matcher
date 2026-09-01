@@ -1,23 +1,7 @@
-"""
-build_db.py
-
-Reads Pump It Up song data (base dataset + optional supplemental songs added
-after the base dataset's last update) and builds a SQLite database containing
-only Singles ("S") charts, since that's the only chart type relevant to two
-players finding songs they can play together.
-
-Data source: base dataset is songlist_phoenix.json, sourced from
-https://github.com/pugkung/piutool (MIT licensed; reused per the repo's
-explicit usage agreement: "Feel free to use this tool or data provided for
-any purpose."). That dataset is snapshotted at Pump It Up Phoenix v1.05 and
-is not actively maintained for newer song releases, so newer songs are
-tracked separately in supplemental_songs.json and merged in here.
-
-Usage:
-    python build_db.py
-Produces:
-    piu_songs.db
-"""
+# Usage:
+#     python build_db.py
+# Produces:
+#     piu_songs.db
 
 import json
 import sqlite3
@@ -29,19 +13,8 @@ OVERRIDES_FILE = Path("chart_overrides.json")
 DB_FILE = Path("piu_songs.db")
 REMOVED_FILE = Path("removed_songs.json")
 
-
 def load_overrides(path: Path) -> dict[int, list[int]]:
-    """Load chart overrides: a mapping of songID -> the CURRENT complete
-    list of Singles difficulty levels for that song, replacing whatever the
-    base dataset says. Used when a song's charts change after the base
-    dataset was snapshotted (a difficulty gets rebalanced, e.g. S16 -> S18,
-    or a new Singles chart is added to an existing song).
 
-    Full-list replacement (rather than trying to patch individual chart
-    entries) avoids ambiguity: there's no need to figure out whether a
-    changed number means "this chart was rebalanced" vs. "this chart was
-    removed and a different one added" — you just state the current truth.
-    """
     if not path.exists():
         return {}
     with open(path, encoding="utf-8") as f:
