@@ -6,19 +6,35 @@
 import json
 import sqlite3
 from pathlib import Path
+import csv
 
 BASE_DATA_FILE = Path("songlist_phoenix.json")
 SUPPLEMENTAL_DATA_FILE = Path("supplemental_songs.json")
 OVERRIDES_FILE = Path("chart_overrides.json")
 DB_FILE = Path("piu_songs.db")
 REMOVED_FILE = Path("removed_songs.json")
+SONGS_CSV_FILE = Path("piu_songs.csv")
+
+def export_songs_csv(conn: sqlite3.Connection, path: Path):
+    cur = conn.cursor()
+    cur.execute("SELECT song_id, title, artist, version, song_type FROM songs ORDER BY title, song_id")
+    rows = cur.fetchall()
+
+    with open(path, "w", newline="", encoding="utf-8") as f:
+        writer = csv.writer(f)
+        writer.writerow(["song_id", "title", "artist", "version", "song_type"])
+        writer.writerows(rows)
+
+    print(f"Exported {len(rows)} songs to {path.resolve()}")
 
 def load_overrides(path: Path) -> dict[int, list[int]]:
-
     if not path.exists():
         return {}
     with open(path, encoding="utf-8") as f:
         data = json.load(f)
+
+    # for every entry in data, create a dictionary entry
+    # where the key is the song ID and the value is the singles
     return {entry["songID"]: entry["singles"] for entry in data}
 
 def load_removed(path: Path) -> set[int]:
@@ -26,20 +42,23 @@ def load_removed(path: Path) -> set[int]:
         return set()
     with open(path, encoding="utf-8") as f:
         data = json.load(f)
+
+    # go through every entry in data and collect its songIDs into a set
     return {entry["songID"] for entry in data}
 
 
 def load_songs(path: Path) -> list[dict]:
-    """Load a song list JSON file. Returns [] if the file doesn't exist
-    (used for the optional supplemental file)."""
     if not path.exists():
         return []
     with open(path, encoding="utf-8") as f:
         data = json.load(f)
-    # base file wraps songs in {"songlist": [...]}; supplemental file is
-    # just a plain list for simplicity when hand-editing it.
-    if isinstance(data, dict) and "songlist" in data:
+
+    # base file wraps songs in {"songlist": [...]};
+    if isinstance(data, dict) and "songlist" in data: # does the dict have a key called songlist
         return data["songlist"]
+
+    # supplemental file is just a plain list for simplicity:
+    # [{"songID": 789, "singles": [...]}]
     if isinstance(data, list):
         return data
     raise ValueError(f"Unrecognized JSON shape in {path}")
@@ -147,6 +166,8 @@ def build_database():
     print(f"Loaded {len(chart_rows)} Singles chart entries.")
     print(f"Skipped {skipped_no_singles} song(s) with no Singles chart (Doubles/Coop-only).")
     print(f"Database written to {DB_FILE.resolve()}")
+
+    export_songs_csv(conn, SONGS_CSV_FILE)
 
     conn.close()
 
