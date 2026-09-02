@@ -14,6 +14,7 @@ OVERRIDES_FILE = Path("chart_overrides.json")
 DB_FILE = Path("piu_songs.db")
 REMOVED_FILE = Path("removed_songs.json")
 SONGS_CSV_FILE = Path("piu_songs.csv")
+TITLE_CORRECTIONS_FILE = Path("title_corrections.json")
 
 def export_songs_csv(conn: sqlite3.Connection, path: Path):
     cur = conn.cursor()
@@ -26,6 +27,13 @@ def export_songs_csv(conn: sqlite3.Connection, path: Path):
         writer.writerows(rows)
 
     print(f"Exported {len(rows)} songs to {path.resolve()}")
+
+def load_title_corrections(path: Path) -> dict[int, str]:
+    if not path.exists():
+        return {}
+    with open(path, encoding="utf-8") as f:
+        data = json.load(f)
+    return {entry["songID"]: entry["title"] for entry in data}
 
 def load_overrides(path: Path) -> dict[int, list[int]]:
     if not path.exists():
@@ -69,6 +77,10 @@ def build_database():
     supplemental = load_songs(SUPPLEMENTAL_DATA_FILE)
     overrides = load_overrides(OVERRIDES_FILE)
     removed = load_removed(REMOVED_FILE)
+    corrected = load_title_corrections(TITLE_CORRECTIONS_FILE)
+
+    if corrected:
+         print(f"Corrected {len(corrected)} song title(s) in the base dataset.")
 
     if removed:
         print(f"Removing {len(removed)} song(s) present in the base dataset.")
@@ -115,8 +127,13 @@ def build_database():
     for song in songs:
         song_id = song.get("songID")
         title = song.get("songName")
+
+        if song_id in corrected:
+            title = corrected[song_id]
+
         artist = song.get("artist")
         bpm_raw = song.get("bpm")
+
         # Some songs have a single BPM (int), others have a tempo range
         # (list, e.g. [140, 202]) for songs with tempo changes. Normalize
         # both to a display-friendly string so the column type is consistent.
