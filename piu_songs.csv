@@ -19,7 +19,7 @@ song_id,title,artist,version,song_type
 630,After a thousand years,TOTO,XX,arcade
 703,Airplane,TYPHOON,phoenix,arcade
 841,Alice in Misanthrope,LeaF,phoenix,arcade
-28,All I Want For X-max,BanYa,PerfectCollection,arcade
+28,All I Want For X-mas,BanYa,PerfectCollection,arcade
 200,Allegro Con Fuoco,DM Ashura,FiestaEX,arcade
 596,Allegro Con Fuoco - FULL SONG -,DM Ashura,XX,fullsong
 480,Allegro Furioso,DM Ashura,Prime2,arcade
@@ -247,6 +247,7 @@ song_id,title,artist,version,song_type
 674,Harmagedon,HyuN vs lixound,XX,arcade
 663,Headless Chicken,r3ook,XX,arcade
 507,Heart Attack,DJ Counterforce,Prime2,arcade
+845,Heliosphere,BlackY,phoenix,arcade
 386,Hellfire,Memme,Prime2,arcade
 56,Hello,BanYa,Premiere3,arcade
 152,Hello William,Banya Production,Fiesta,arcade
