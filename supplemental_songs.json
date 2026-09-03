@@ -1,0 +1,23 @@
+[
+  {
+    "songID": 844,
+    "songName": "SWEET WONDERLAND",
+    "artist": "MAX feat. ankimo",
+    "bpm": 170,
+    "chartList": [
+      {
+        "chartType": "single",
+        "level": 3,
+        "tags": []
+      },
+      {
+        "chartType": "single",
+        "level": 5,
+        "tags": []
+      }
+    ],
+    "songType": "arcade",
+    "version": "phoenix",
+    "note": "Added from Phoenix 2 v2.12.0"
+  }
+]

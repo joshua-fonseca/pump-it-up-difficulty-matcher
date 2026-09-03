@@ -7,10 +7,11 @@ import json
 import sqlite3
 from pathlib import Path
 import csv
+from csv_to_supplemental import build_supplemental_songs
 
+NEW_SONGS_CSV_FILE = Path("new_songs.csv")
 BASE_DATA_FILE = Path("songlist_phoenix.json")
 SUPPLEMENTAL_DATA_FILE = Path("supplemental_songs.json")
-OVERRIDES_FILE = Path("chart_overrides.json")
 DB_FILE = Path("piu_songs.db")
 REMOVED_FILE = Path("removed_songs.json")
 SONGS_CSV_FILE = Path("piu_songs.csv")
@@ -34,16 +35,6 @@ def load_title_corrections(path: Path) -> dict[int, str]:
     with open(path, encoding="utf-8") as f:
         data = json.load(f)
     return {entry["songID"]: entry["title"] for entry in data}
-
-def load_overrides(path: Path) -> dict[int, list[int]]:
-    if not path.exists():
-        return {}
-    with open(path, encoding="utf-8") as f:
-        data = json.load(f)
-
-    # for every entry in data, create a dictionary entry
-    # where the key is the song ID and the value is the singles
-    return {entry["songID"]: entry["singles"] for entry in data}
 
 def load_removed(path: Path) -> set[int]:
     if not path.exists():
@@ -74,10 +65,13 @@ def load_songs(path: Path) -> list[dict]:
 
 def build_database():
     songs = load_songs(BASE_DATA_FILE)
-    supplemental = load_songs(SUPPLEMENTAL_DATA_FILE)
-    overrides = load_overrides(OVERRIDES_FILE)
+    
     removed = load_removed(REMOVED_FILE)
     corrected = load_title_corrections(TITLE_CORRECTIONS_FILE)
+
+    supplemental = build_supplemental_songs(NEW_SONGS_CSV_FILE)
+    with open(SUPPLEMENTAL_DATA_FILE, "w", encoding="utf-8") as f:
+        json.dump(supplemental, f, indent=2, ensure_ascii=False)
 
     if corrected:
          print(f"Corrected {len(corrected)} song title(s) in the base dataset.")
@@ -86,13 +80,9 @@ def build_database():
         print(f"Removing {len(removed)} song(s) present in the base dataset.")
         songs = [s for s in songs if s["songID"] not in removed]
 
-
     if supplemental:
-        print(f"Merging {len(supplemental)} supplemental song(s) not present in the base dataset.")
+        print(f"Added {len(supplemental)} song(s) to song list.")
         songs.extend(supplemental)
-
-    if overrides:
-        print(f"Applying chart overrides for {len(overrides)} song(s).")
 
     if DB_FILE.exists():
         DB_FILE.unlink()  # rebuild fresh each run
@@ -152,11 +142,6 @@ def build_database():
             chart for chart in song.get("chartList", [])
             if chart.get("chartType") == "single"
         ]
-
-        # If this song has an override, its Singles list fully replaces
-        # whatever the base/supplemental data said (see load_overrides).
-        if song_id in overrides:
-            singles = [{"level": lvl} for lvl in overrides[song_id]]
 
         if not singles:
             skipped_no_singles += 1
