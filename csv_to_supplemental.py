@@ -1,6 +1,4 @@
 """
-csv_to_supplemental.py
-
 Converts a CSV of new songs (one row per Singles difficulty chart) into
 supplemental_songs.json, in the same song-object shape used elsewhere in
 this project (matching songlist_phoenix.json's structure), so these songs
@@ -12,21 +10,6 @@ CSV format (one row per chart, song metadata repeated per row):
     9001,Example New Song,Example Artist,150,arcade,random,11,Added after Phoenix 2 rerate
     9001,Example New Song,Example Artist,150,arcade,random,17,
     9001,Example New Song,Example Artist,150,arcade,random,21,
-
-Notes:
-  - One row per difficulty — a song with 3 Singles charts needs 3 rows,
-    all sharing the same songID.
-  - Song-level fields (songName, artist, bpm, songType, version) should be
-    identical across all rows for the same songID. If they don't match,
-    this script warns and skips that song rather than guessing which
-    value is correct.
-  - note only needs to be filled on one row per song; blank on the rest
-    is fine. It's carried through into the output JSON as documentation
-    for whoever is maintaining the supplemental file — it's never read by
-    build_db.py itself.
-  - BPM ranges (e.g. songs with tempo changes) aren't supported by this
-    CSV format — enter a single number. Add tempo-range BPM songs to
-    supplemental_songs.json by hand if needed.
 
 Usage:
     python csv_to_supplemental.py new_songs.csv supplemental_songs.json

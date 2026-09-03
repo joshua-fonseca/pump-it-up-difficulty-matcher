@@ -16,6 +16,7 @@ DB_FILE = Path("piu_songs.db")
 REMOVED_FILE = Path("removed_songs.json")
 SONGS_CSV_FILE = Path("piu_songs.csv")
 TITLE_CORRECTIONS_FILE = Path("title_corrections.json")
+ADDED_DIFFICULTIES_FILE = Path("added_difficulties.json")
 
 def export_songs_csv(conn: sqlite3.Connection, path: Path):
     cur = conn.cursor()
@@ -45,6 +46,12 @@ def load_removed(path: Path) -> set[int]:
     # go through every entry in data and collect its songIDs into a set
     return {entry["songID"] for entry in data}
 
+def load_added_difficulties(path: Path) -> dict[int, list[int]]:
+    if not path.exists():
+        return {}
+    with open(path, encoding="utf-8") as f:
+        data = json.load(f)
+    return {entry["songID"]: entry["add"] for entry in data}
 
 def load_songs(path: Path) -> list[dict]:
     if not path.exists():
@@ -65,13 +72,16 @@ def load_songs(path: Path) -> list[dict]:
 
 def build_database():
     songs = load_songs(BASE_DATA_FILE)
-    
+
     removed = load_removed(REMOVED_FILE)
     corrected = load_title_corrections(TITLE_CORRECTIONS_FILE)
+    added_difficulties = load_added_difficulties(ADDED_DIFFICULTIES_FILE)
 
     supplemental = build_supplemental_songs(NEW_SONGS_CSV_FILE)
     with open(SUPPLEMENTAL_DATA_FILE, "w", encoding="utf-8") as f:
         json.dump(supplemental, f, indent=2, ensure_ascii=False)
+
+    print(f"> Base data modifications:")
 
     if corrected:
          print(f"Corrected {len(corrected)} song title(s) in the base dataset.")
@@ -113,6 +123,7 @@ def build_database():
     song_rows = []
     chart_rows = []
     skipped_no_singles = 0
+    songs_with_new_difficulties = set()
 
     for song in songs:
         song_id = song.get("songID")
@@ -143,6 +154,20 @@ def build_database():
             if chart.get("chartType") == "single"
         ]
 
+        if song_id in added_difficulties:
+            existing_levels = {chart.get("level") for chart in singles}
+            for new_level in added_difficulties[song_id]:
+                if new_level in existing_levels:
+                    print(f"Song {song_id}: difficulty S{new_level} already exists, ignoring addition.")
+                    continue
+                singles.append({"level": new_level})
+                songs_with_new_difficulties.add(song_id)
+
+        # If this song has an override, its Singles list fully replaces
+        # whatever the base/supplemental/added data said (see load_overrides).
+        # if song_id in overrides:
+        #     singles = [{"level": lvl} for lvl in overrides[song_id]]
+
         if not singles:
             skipped_no_singles += 1
             continue
@@ -162,8 +187,12 @@ def build_database():
         chart_rows,
     )
 
+    if songs_with_new_difficulties:
+        print(f"Added new difficulties to {len(songs_with_new_difficulties)} song(s).")
+
     conn.commit()
 
+    print(f"\n> SUMMARY")
     print(f"Loaded {len(song_rows)} songs with Singles charts.")
     print(f"Loaded {len(chart_rows)} Singles chart entries.")
     print(f"Skipped {skipped_no_singles} song(s) with no Singles chart (Doubles/Coop-only).")
