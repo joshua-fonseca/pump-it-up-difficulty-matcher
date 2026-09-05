@@ -30,12 +30,10 @@ import sqlite3
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-DB_DIR = BASE_DIR / "data" / "databases"
-DB_DIR.mkdir(parents=True, exist_ok=True)
 
-BASE_DB_FILE = DB_DIR / "piu_songs.db"
-RERATES_DB_FILE = DB_DIR / "piu_rerates.db"
-FINAL_DB_FILE = DB_DIR / "piu_songs_final.db"
+BASE_DB_FILE = BASE_DIR / "piu_songs.db"
+RERATES_DB_FILE = BASE_DIR / "piu_rerates.db"
+FINAL_DB_FILE = BASE_DIR / "piu_songs_final.db"
 
 def build_final_db():
     if not BASE_DB_FILE.exists():

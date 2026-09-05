@@ -21,7 +21,9 @@ import sqlite3
 import sys
 from pathlib import Path
 
-RERATES_DB_FILE = Path("piu_rerates.db")
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+RERATES_DB_FILE = BASE_DIR / "piu_rerates.db"  # generated, root
 
 
 def build_rerates_db(csv_path: Path):

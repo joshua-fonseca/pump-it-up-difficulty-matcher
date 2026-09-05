@@ -13,19 +13,21 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 DATA_DIR = BASE_DIR / "data"
 JSON_DIR = DATA_DIR / "json"
 CSV_DIR = DATA_DIR / "csv"
-DB_DIR = DATA_DIR / "databases"
 
-for d in (JSON_DIR, CSV_DIR, DB_DIR):
+for d in (JSON_DIR, CSV_DIR):
     d.mkdir(parents=True, exist_ok=True)
 
+# Source of truth lives in data/
 NEW_SONGS_CSV_FILE = CSV_DIR / "new_songs.csv"
 BASE_DATA_FILE = JSON_DIR / "songlist_phoenix.json"
-SUPPLEMENTAL_DATA_FILE = JSON_DIR / "supplemental_songs.json"
-DB_FILE = DB_DIR / "piu_songs.db"
 REMOVED_FILE = JSON_DIR / "removed_songs.json"
-SONGS_CSV_FILE = CSV_DIR / "piu_songs.csv"
 TITLE_CORRECTIONS_FILE = JSON_DIR / "title_corrections.json"
 ADDED_DIFFICULTIES_FILE = JSON_DIR / "added_difficulties.json"
+
+# Generated lives at project root
+SUPPLEMENTAL_DATA_FILE = BASE_DIR / "supplemental_songs.json"
+SONGS_CSV_FILE = BASE_DIR / "piu_songs.csv"
+DB_FILE = BASE_DIR / "piu_songs.db"
 
 def export_songs_csv(conn: sqlite3.Connection, path: Path):
     cur = conn.cursor()
