@@ -9,14 +9,23 @@ from pathlib import Path
 import csv
 from csv_to_supplemental import build_supplemental_songs
 
-NEW_SONGS_CSV_FILE = Path("new_songs.csv")
-BASE_DATA_FILE = Path("songlist_phoenix.json")
-SUPPLEMENTAL_DATA_FILE = Path("supplemental_songs.json")
-DB_FILE = Path("piu_songs.db")
-REMOVED_FILE = Path("removed_songs.json")
-SONGS_CSV_FILE = Path("piu_songs.csv")
-TITLE_CORRECTIONS_FILE = Path("title_corrections.json")
-ADDED_DIFFICULTIES_FILE = Path("added_difficulties.json")
+BASE_DIR = Path(__file__).resolve().parent.parent
+DATA_DIR = BASE_DIR / "data"
+JSON_DIR = DATA_DIR / "json"
+CSV_DIR = DATA_DIR / "csv"
+DB_DIR = DATA_DIR / "databases"
+
+for d in (JSON_DIR, CSV_DIR, DB_DIR):
+    d.mkdir(parents=True, exist_ok=True)
+
+NEW_SONGS_CSV_FILE = CSV_DIR / "new_songs.csv"
+BASE_DATA_FILE = JSON_DIR / "songlist_phoenix.json"
+SUPPLEMENTAL_DATA_FILE = JSON_DIR / "supplemental_songs.json"
+DB_FILE = DB_DIR / "piu_songs.db"
+REMOVED_FILE = JSON_DIR / "removed_songs.json"
+SONGS_CSV_FILE = CSV_DIR / "piu_songs.csv"
+TITLE_CORRECTIONS_FILE = JSON_DIR / "title_corrections.json"
+ADDED_DIFFICULTIES_FILE = JSON_DIR / "added_difficulties.json"
 
 def export_songs_csv(conn: sqlite3.Connection, path: Path):
     cur = conn.cursor()
