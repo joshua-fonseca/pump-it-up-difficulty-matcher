@@ -1,123 +1,229 @@
-# PIU Song Matcher — Data Layer
+# PIU Song Matcher
+> Find songs two players of different skill levels can play together
 
-Two players at different skill levels often can't tell which songs both of
-them can comfortably play. This tool lets each player enter their difficulty
-range and returns the songs that fall within *both* ranges (Singles charts
-only, since that's the chart type used when playing together).
+Pump It Up is a rhythm game where songs come in multiple difficulty charts.
+When two players of different skill levels want to play together, there's no
+easy way to see which songs fall within *both* of their comfortable ranges.
+This project builds a queryable song database, each player enters their
+difficulty range, and the tool returns songs both of them can play (Singles
+charts only, since that's the chart type used when playing together).
 
-This README covers the data layer: where the song data comes from, how it's
-structured, and how to keep it up to date.
+This repository currently covers the **data layer**: sourcing, cleaning, and
+structuring the song data into a SQLite database ready to be queried by a
+frontend (not yet built).
 
-## Data source
+## Installing / Getting started
 
-Base dataset: [`pugkung/piutool`](https://github.com/pugkung/piutool)
-(MIT licensed). Per the repo's own usage agreement: *"Feel free to use this
-tool or data provided for any purpose."*
+You'll need Python 3.10+ (for modern type-hint syntax) and no external
+packages, everything here uses the standard library (`sqlite3`, `json`,
+`csv`, `pathlib`).
 
-That dataset is snapshotted at **Pump It Up Phoenix v1.05** and is not
-actively maintained for songs released after that version. Songs released
-since then are tracked separately (see below) and merged in at build time.
-
-## Files
-
-| File | Purpose |
-|---|---|
-| `songlist_phoenix.json` | Base dataset (all songs as of Phoenix v1.05) |
-| `supplemental_songs.json` | Songs released after v1.05, added manually (optional — omit if empty) |
-| `chart_overrides.json` | Corrections for existing songs whose charts changed after v1.05 — rebalanced difficulties or new charts added (optional — omit if empty) |
-| `build_db.py` | Reads all three files, filters to Singles charts, builds `piu_songs.db` |
-| `piu_songs.db` | Output SQLite database (generated, not committed) |
-
-## Schema
-
-```sql
-CREATE TABLE songs (
-    song_id INTEGER PRIMARY KEY,
-    title TEXT NOT NULL,
-    artist TEXT,
-    bpm TEXT       -- stored as text since some songs have a tempo range (e.g. "140-202")
-);
-
-CREATE TABLE charts (
-    chart_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    song_id INTEGER NOT NULL,
-    difficulty INTEGER NOT NULL,
-    FOREIGN KEY (song_id) REFERENCES songs(song_id)
-);
+```shell
+git clone https://github.com/<your-username>/pump-it-up-difficulty-matcher.git
+cd pump-it-up-difficulty-matcher
+python src/build_db.py
 ```
 
-A song can have multiple Singles charts at different difficulty levels
-(e.g. a Normal S13 and a Hard S18 of the same song), so `songs` and `charts`
-are separate tables in a one-to-many relationship. Doubles and Co-op charts
-are intentionally excluded — this tool only concerns two players on
-Singles.
+This reads the base song dataset plus any corrections/additions you've
+configured (see **Configuration** below) and produces `piu_songs.db` at the
+project root, a SQLite database of every song and its Singles difficulty
+charts.
 
-## The matching query
+### Initial Configuration
 
-Given two players' difficulty ranges, return songs playable by both:
+No API keys or secrets are needed. The one thing worth doing before your
+first run is deciding whether you have a chart-rerate CSV to apply (see
+**Developing → Applying rerates** below), if not, `build_db.py` alone
+produces a fully usable database.
 
-```sql
-SELECT s.title, c.difficulty
-FROM songs s
-JOIN charts c ON s.song_id = c.song_id
-WHERE c.difficulty BETWEEN :player1_min AND :player1_max
-  AND c.difficulty BETWEEN :player2_min AND :player2_max
-ORDER BY c.difficulty;
+## Developing
+
+```shell
+git clone https://github.com/<your-username>/pump-it-up-difficulty-matcher.git
+cd pump-it-up-difficulty-matcher
 ```
 
-## Building the database
+Project layout:
 
-```bash
-python build_db.py
+```
+src/                          Python scripts
+data/
+  json/                       Source-of-truth JSON (hand-maintained)
+  csv/                        Source-of-truth CSVs (hand-maintained)
+piu_songs.db                  Generated database (gitignored)
+piu_rerates.db                Generated database (gitignored)
+piu_songs_final.db            Generated database (gitignored)
+supplemental_songs.json       Generated from data/csv/new_songs.csv (gitignored)
+piu_songs.csv                 Generated export of the songs table (gitignored)
 ```
 
-This regenerates `piu_songs.db` from scratch each run (safe to re-run any
-time the source JSON files change).
+Everything under `data/` is a hand-maintained input; everything else listed
+above is rebuilt from scratch on every run and safe to delete at any time.
 
-## Adding songs released after Phoenix v1.05
+### Building
 
-Since the base dataset isn't actively maintained, new songs need to be added
-by hand. Create/edit `supplemental_songs.json` (see
-`supplemental_songs.example.json` for the format) and re-run `build_db.py`.
+The base database:
 
-A few notes:
-- Use a `songID` in the 9000+ range to avoid colliding with IDs in the base
-  dataset (which currently tops out in the 800s).
-- Only `single` chart entries are read — `double`/`coop` entries can be
-  included for completeness but are ignored by the build script.
-- BPM can be a single number or a two-value list (e.g. `[140, 202]`) for
-  songs with tempo changes.
+```shell
+python src/build_db.py
+```
 
-## Handling difficulty changes to existing songs
+This applies, in order: title corrections, song removals, supplemental
+(newly-released) songs, and additive difficulties, then writes
+`piu_songs.db`.
 
-Charts for songs *already in the base dataset* sometimes change after v1.05
-— a difficulty gets rebalanced (e.g. S16 becomes S18), or a new Singles
-chart is added to a song that previously didn't have one at that level.
+### Applying rerates
 
-Rather than trying to patch individual chart entries (which gets ambiguous —
-did S16 become S18, or was S16 removed and an unrelated S18 added?),
-`chart_overrides.json` uses full-list replacement: you provide the complete,
-current list of Singles difficulties for that song, and it replaces
-whatever the base dataset says entirely.
+Chart difficulties occasionally get rebalanced during a major game update
+(e.g. Phoenix 1 to Phoenix 2, where a song's S16 chart might become S18).
+Rerates typically affect far more charts at once than a handful of title
+corrections or removed songs, so unlike those (which are small enough to
+hand-edit directly as JSON), rerates are processed from a CSV instead,
+since automating the CSV to database matching is far less error-prone than
+manually retyping dozens or hundreds of chart changes by hand.
+
+This is handled as a separate two-step pipeline, deliberately kept apart
+from `build_db.py` so the un-rerated baseline stays available for
+comparison:
+
+```shell
+python src/build_rerates_db.py data/csv/piu_rerates.csv   # stages the raw CSV into piu_rerates.db, unmodified
+python src/build_final_db.py                              # copies piu_songs.db -> piu_songs_final.db, applies rerates to the copy
+```
+
+`piu_songs.db` is never modified by this step, `piu_songs_final.db` is the
+combined, "current" output, while `piu_songs.db` remains a historical
+snapshot of the pre-rerate data.
+
+### Cleaning generated files
+
+```shell
+bash clean.sh
+```
+
+Deletes every generated database and derived file so the pipeline can be
+rerun from scratch.
+
+## Features
+
+* Builds a queryable SQLite database of Pump It Up songs and their Singles
+  difficulty charts
+* Title correction, song removal, new-song addition, and additive-difficulty
+  mechanisms for keeping the base dataset current without touching the
+  original source data
+* A separate rerate pipeline that preserves the pre-rerate database as a
+  historical snapshot rather than overwriting it
+* All new-song data is added by hand (see **Configuration**) rather than
+  scraped, since the community sites that host up-to-date PIU chart data
+  disallow automated access in both `robots.txt` and their Terms of Service
+
+## Configuration
+
+All configuration is done via the data files below. Every optional file is
+safe to omit entirely, `build_db.py` treats a missing file as "no changes
+of this kind."
+
+#### `data/json/songlist_phoenix.json`
+Type: JSON (required)
+
+The base dataset, sourced from
+[`pugkung/piutool`](https://github.com/pugkung/piutool). Snapshotted at
+Pump It Up Phoenix v1.05; not actively maintained for songs released after
+that version.
+
+#### `data/csv/new_songs.csv`
+Type: CSV (optional)
+
+Songs released after the base dataset's snapshot, entered manually by
+watching official gameplay/reveal videos on the
+[official Pump It Up YouTube channel](https://www.youtube.com/@PUMPITUPOfficial)
+(one row per Singles difficulty chart). This is done manually rather than
+scraped, see **Features** below for why. Regenerates
+`supplemental_songs.json` on every `build_db.py` run.
+
+Example:
+```csv
+songID,songName,artist,bpm,songType,version,difficulty,note
+9001,Example New Song,Example Artist,150,arcade,random,11,
+9001,Example New Song,Example Artist,150,arcade,random,17,
+```
+
+#### `data/json/removed_songs.json`
+Type: JSON (optional)
+
+Songs present in the base dataset that have since been removed from the
+game.
 
 ```json
-[
-  {
-    "songID": 4,
-    "singles": [4, 6, 8, 18],
-    "note": "S16 rebalanced to S18"
-  }
-]
+[{ "songID": 123, "note": "Removed in [version/patch]" }]
 ```
 
-See `chart_overrides.example.json` for the template. The `note` field is
-optional but recommended — it's not read by the build script, but it's
-useful documentation for why the override exists (which patch/version
-introduced the change, etc.).
+#### `data/json/title_corrections.json`
+Type: JSON (optional)
+
+Fixes typos in the base dataset's song titles (matched by `songID`, since
+the existing title is exactly what may be wrong).
+
+```json
+[{ "songID": 113, "title": "Monkey Fingers", "note": "Base dataset typo" }]
+```
+
+#### `data/json/added_difficulties.json`
+Type: JSON (optional)
+
+Adds new Singles charts to a song already in the base dataset, without
+needing to restate its existing chart list. Each `songID` should appear
+**once**, with every new difficulty in a single `add` list.
+
+```json
+[{ "songID": 271, "add": [22], "note": "New S22 chart added" }]
+```
+
+#### `data/csv/piu_rerates.csv`
+Type: CSV (optional)
+
+Chart rerates from a game update, in long format (one row per chart
+change). Consumed by `build_rerates_db.py` / `build_final_db.py`, not
+`build_db.py` directly.
+
+Sourced from the community-compiled
+[Pump It Up Phoenix 2 chart rerates and removals](https://www.reddit.com/r/PumpItUp/comments/1tji3wg/pump_it_up_phoenix_2_chart_rerates_and_removals/)
+Reddit post and its accompanying
+[Google Sheet](https://docs.google.com/spreadsheets/d/1MhrFJf9Mnp5i5-cqWgeRvqcJZmzlDPwheLdQL4S1vaQ/edit?gid=1983447790#gid=1983447790),
+then reprocessed by hand into the long-format CSV this pipeline expects,
+see the
+[processed sheet](https://docs.google.com/spreadsheets/d/1DUMNMJJqfnBMCe_tdNmKEJyV_JGmkqqVBelZW0WIfSo/edit?usp=sharing)
+for the cleaned version.
+
+## Contributing
+
+This is currently a personal portfolio project, but suggestions are
+welcome, feel free to open an issue if you spot a data error or a bug in
+the build pipeline.
+
+## Links
+
+- Repository: `https://github.com/<your-username>/pump-it-up-difficulty-matcher`
+- Base dataset source: [pugkung/piutool](https://github.com/pugkung/piutool)
+- Chart rerate data: [r/PumpItUp rerates & removals post](https://www.reddit.com/r/PumpItUp/comments/1tji3wg/pump_it_up_phoenix_2_chart_rerates_and_removals/) · [original Google Sheet](https://docs.google.com/spreadsheets/d/1MhrFJf9Mnp5i5-cqWgeRvqcJZmzlDPwheLdQL4S1vaQ/edit?gid=1983447790#gid=1983447790) · [processed sheet used by this project](https://docs.google.com/spreadsheets/d/1DUMNMJJqfnBMCe_tdNmKEJyV_JGmkqqVBelZW0WIfSo/edit?usp=sharing)
+- New song data: [official Pump It Up YouTube channel](https://www.youtube.com/@PUMPITUPOfficial)
+
+## Licensing
+
+The code in this project is licensed under the MIT license.
+
+The base song dataset is sourced from
+[pugkung/piutool](https://github.com/pugkung/piutool) (MIT licensed), reused
+per the repository's stated terms: *"Feel free to use this tool or data
+provided for any purpose."*
 
 ## Known limitations
 
 - Song data reflects Pump It Up Phoenix v1.05 plus whatever has been
-  manually added to `supplemental_songs.json`; it is not automatically kept
-  in sync with the live game.
-- Doubles and Co-op charts are excluded by design, not by omission.
+  manually added since; it is not automatically kept in sync with the live
+  game.
+- Doubles and Co-op charts are excluded by design, not by omission, this
+  tool only concerns Singles charts, since that's what two players share.
+- New songs are added by manual transcription from official gameplay
+  footage rather than scraped, since the community sites with up-to-date
+  chart data (e.g. tier-list sites) disallow automated access.
