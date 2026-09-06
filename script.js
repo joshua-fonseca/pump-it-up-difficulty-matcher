@@ -17,18 +17,6 @@ let db = null;
 // Pages, or opened as a local file) — it will not persist inside a
 // sandboxed preview environment that blocks localStorage.
 
-function saveRanges() {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({
-      p1min: state.p1min, p1max: state.p1max,
-      p2min: state.p2min, p2max: state.p2max,
-      activeTypes: [...state.activeTypes],
-    }));
-  } catch (e) {
-    console.warn("Could not save ranges to localStorage:", e);
-  }
-}
-
 function loadRanges() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
