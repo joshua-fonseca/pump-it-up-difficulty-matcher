@@ -20,7 +20,7 @@ Run build_db.py and build_rerates_db.py first to produce their respective
 databases before running this script.
 
 Usage:
-    python build_final_db.py
+    python src/build_final_db.py
 Produces:
     piu_songs_final.db
 """

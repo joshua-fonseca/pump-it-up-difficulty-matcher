@@ -11,7 +11,7 @@ data is captured faithfully in a staging layer, separate from the
 lives in a separate step (apply_rerates.py), not here.
 
 Usage:
-    python build_rerates_db.py <rerates.csv>
+    python src/build_rerates_db.py data/csv/piu_rerates.csv
 Produces:
     piu_rerates.db
 """

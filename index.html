@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+  <title>PIU Song Matcher</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="app-header">
+    <h1>PIU Song Matcher</h1>
+    <p class="app-subtitle">Set each player's comfortable range. Find songs you can both play.</p>
+  </header>
+
+  <main>
+    <section class="steppers" aria-label="Difficulty ranges">
+      <div class="stepper-column p1" data-player="p1">
+        <span class="player-label">Player 1</span>
+        <div class="stepper-row">
+          <button class="step-btn" data-target="p1min" data-dir="1" aria-label="Increase Player 1 minimum">▲</button>
+          <button class="step-btn" data-target="p1max" data-dir="1" aria-label="Increase Player 1 maximum">▲</button>
+        </div>
+        <div class="range-display">
+          <span id="p1min-display">1</span>
+          <span class="range-dash">–</span>
+          <span id="p1max-display">26</span>
+        </div>
+        <div class="stepper-row">
+          <button class="step-btn" data-target="p1min" data-dir="-1" aria-label="Decrease Player 1 minimum">▼</button>
+          <button class="step-btn" data-target="p1max" data-dir="-1" aria-label="Decrease Player 1 maximum">▼</button>
+        </div>
+      </div>
+
+      <div class="stepper-column p2" data-player="p2">
+        <span class="player-label">Player 2</span>
+        <div class="stepper-row">
+          <button class="step-btn" data-target="p2min" data-dir="1" aria-label="Increase Player 2 minimum">▲</button>
+          <button class="step-btn" data-target="p2max" data-dir="1" aria-label="Increase Player 2 maximum">▲</button>
+        </div>
+        <div class="range-display">
+          <span id="p2min-display">1</span>
+          <span class="range-dash">–</span>
+          <span id="p2max-display">26</span>
+        </div>
+        <div class="stepper-row">
+          <button class="step-btn" data-target="p2min" data-dir="-1" aria-label="Decrease Player 2 minimum">▼</button>
+          <button class="step-btn" data-target="p2max" data-dir="-1" aria-label="Decrease Player 2 maximum">▼</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="filter-section" aria-label="Filter by song type">
+      <span class="filter-label">Filter by song type</span>
+      <div class="chip-group" id="song-type-filters">
+        <button class="chip" data-type="arcade" aria-pressed="true">Arcade</button>
+        <button class="chip" data-type="remix" aria-pressed="false">Remix</button>
+        <button class="chip" data-type="shortcut" aria-pressed="false">Shortcut</button>
+        <button class="chip" data-type="fullsong" aria-pressed="false">Full Song</button>
+      </div>
+    </section>
+
+    <section class="results-section" aria-label="Matching songs">
+      <div class="results-meta">
+        <span id="results-count">Loading songs…</span>
+        <span class="order-note">Newest version first</span>
+      </div>
+      <div id="results-list" class="results-list"></div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <p>Difficulty data from the Pump It Up song database. Highlighted numbers show which chart each player can take.</p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/sql-wasm.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

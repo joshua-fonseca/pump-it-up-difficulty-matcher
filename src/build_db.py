@@ -1,5 +1,5 @@
 # Usage:
-#     python build_db.py
+#     python src/build_db.py
 # Produces:
 #     piu_songs.db, piu_songs.csv
 
