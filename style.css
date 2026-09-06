@@ -4,10 +4,10 @@
   --surface-raised: #262538;
   --text: #F2EFE6;
   --text-muted: #8B899E;
-  --p1: #FF6B4D;
-  --p1-dim: #6b3226;
-  --p2: #38D9C4;
-  --p2-dim: #1e5850;
+  --p1: #ad3939;
+  --p1-dim: #742626;
+  --p2: #387bd9;
+  --p2-dim: #1e3958;
   --both: #F2C94C;
   --border: #34324a;
   --radius: 10px;
@@ -178,6 +178,7 @@ main {
   font-weight: 500;
   cursor: pointer;
   transition: all 0.12s ease;
+  touch-action: manipulation;
 }
 
 .chip[aria-pressed="true"] {

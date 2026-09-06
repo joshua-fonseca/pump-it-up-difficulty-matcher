@@ -143,11 +143,15 @@ function queryMatches() {
 
   const sql = `
     SELECT s.song_id, s.title, s.version, s.song_type,
-           GROUP_CONCAT(c.difficulty) as difficulties
+          GROUP_CONCAT(c.difficulty) as difficulties
     FROM songs s
     JOIN charts c ON c.song_id = s.song_id
     LEFT JOIN versions v ON v.version_name = s.version
     WHERE s.song_type IN (${typeList})
+      AND (
+        c.difficulty BETWEEN ${state.p1min} AND ${state.p1max}
+        OR c.difficulty BETWEEN ${state.p2min} AND ${state.p2max}
+      )
       AND s.song_id IN (
         SELECT song_id FROM charts
         WHERE difficulty BETWEEN ${state.p1min} AND ${state.p1max}
