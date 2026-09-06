@@ -1,0 +1,620 @@
+song_id,title,artist,bpm,version,song_type
+4,Another Truth,Novasonic,136,1st,arcade
+5,Final Audition,BanYa,130,2nd,arcade
+6,Extravaganza,BanYa,195,2nd,arcade
+9,Repeatorment Remix,BanYa,150,2nd,remix
+10,Final Audition 2,BanYa,130,3rd,arcade
+11,Naissance,BanYa,136,3rd,arcade
+12,Turkey March,BanYa,150,3rd,arcade
+13,Nightmare,BanYa,120,3rd,arcade
+14,Close Your Eye,BanYa,105,3rd,arcade
+15,Free Style,BanYa,99,3rd,arcade
+16,Midnight Blue,BanYa,80,3rd,arcade
+17,She Likes Pizza,BanYa,230,3rd,arcade
+18,Pumping Up,BanYa,135,3rd,arcade
+20,Oh! Rosa!,BanYa,148,3rdSE,arcade
+21,First Love,BanYa,103,3rdSE,arcade
+22,Betrayer,BanYa,92,3rdSE,arcade
+23,Solitary,BanYa,136,3rdSE,arcade
+24,Mr.Larpus,BanYa,190,3rdSE,arcade
+25,Pump Jump,BanYa,106,PerfectCollection,arcade
+26,N,BanYa,106,PerfectCollection,arcade
+27,Rolling Christmas,BanYa,142,PerfectCollection,arcade
+28,All I Want For X-mas,BanYa,130,PerfectCollection,arcade
+29,Beethoven Virus,BanYa,162,PerfectCollection,arcade
+30,Slam,Novasonic,131,PerfectCollection,arcade
+31,Chicken Wing,BanYa,200,Extra,arcade
+32,Final Audition Ep.1,BanYa,189,Extra,arcade
+33,EXTRA BanYa Remix,BanYa,200,Extra,remix
+34,Dr. M,BanYa,145,Rebirth,arcade
+35,Emperor,BanYa,150,Rebirth,arcade
+36,Get Your Groove On,BanYa,96,Rebirth,arcade
+37,Love is a Danger Zone,BanYa,140,Rebirth,arcade
+38,Maria,BanYa,136,Rebirth,arcade
+39,Mission Possible,BanYa,124,Rebirth,arcade
+40,My Way,BanYa,118,Rebirth,arcade
+41,Point Break,BanYa,92,Rebirth,arcade
+42,Street Show Down,BanYa,124,Rebirth,arcade
+43,Top City,BanYa,110,Rebirth,arcade
+44,Winter,BanYa,168,Rebirth,arcade
+45,Will-O-The-Wisp,BanYa,210,Rebirth,arcade
+46,Till the end of time,BanYa,140,Rebirth,arcade
+47,Oy Oy Oy,BanYa,148,Rebirth,arcade
+48,We will meet again,BanYa,118,Rebirth,arcade
+49,Miss S'Story,BanYa,111,Rebirth,arcade
+50,Set me up,BanYa,120,Rebirth,arcade
+51,Dance wth me,BanYa,122,Rebirth,arcade
+52,Vook,BanYa,184,Rebirth,arcade
+53,Csikos Post,BanYa,180,Rebirth,arcade
+54,Bee,BanYa,160,Premiere3,arcade
+55,D Gang,BanYa,150,Premiere3,arcade
+56,Hello,BanYa,140,Premiere3,arcade
+57,Beat of The War,BanYa,140-202,Premiere3,arcade
+58,Come to Me,BanYa,100-107,Prex3,arcade
+59,Final Audition 3,BanYa,130,Exceed,arcade
+60,Naissance 2,BanYa,129,Exceed,arcade
+61,Monkey Finger,BanYa,186,Exceed,arcade
+62,Blazing,BanYa,158,Exceed,arcade
+63,Pump Me Amadeus,BanYa,170,Exceed,arcade
+64,X Treme,BanYa,162,Exceed,arcade
+65,Get Up!,BanYa,180,Exceed,arcade
+68,J Bong,BanYa,140,Exceed2,arcade
+69,Hi Bi,BanYa,145,Exceed2,arcade
+70,Solitary 2,BanYa,136,Exceed2,arcade
+71,Canon D,BanYa,160,Exceed2,arcade
+72,Tream Vook of the war REMIX,BanYa,184-202,Exceed2,remix
+73,Banya Classic Remix,BanYa,162-170,Exceed2,remix
+74,Banya Hiphop Remix,BanYa,99,Exceed2,remix
+75,Canon D FULL Song MIX,BanYa,160,Exceed2,fullsong
+76,Beat of The War 2,BanYa,120-190,Zero,arcade
+77,Moonlight,BanYa,180,Zero,arcade
+78,Witch Doctor,BanYa,195,Zero,arcade
+79,Love is a Danger Zone pt.2,BanYa,162,Zero,arcade
+80,Phantom,BanYa,136,Zero,arcade
+81,Papa Gonzales,BanYa,145,Zero,arcade
+83,Love is a danger zone (try to B.P.M),BanYa,140-169,Zero,remix
+84,Love is a Danger Zone pt.2 another,BanYa,162,Zero,arcade
+85,Witch Doctor #1,YAHPP,122,NX,arcade
+86,Arch of Darkness,YAHPP,135,NX,arcade
+87,Chimera,YAHPP,210,NX,arcade
+88,2006 LOVE SONG,Banya Production,96,NX,arcade
+89,Do U Know That-Old School,Banya Production,120,NX,arcade
+90,Gun Rock,Banya Production,104,NX,arcade
+91,Bullfighter's Song,Banya Production,168,NX,arcade
+92,Ugly Dee,Banya Production,92,NX,arcade
+93,Final Audition Ep.2-1,YAHPP,170,NX,arcade
+94,Final Audition Ep.2-2,YAHPP,200,NX,arcade
+95,WI-EX-DOC-VA,YAHPP,195,NX,remix
+96,BEMERA,YAHPP,210,NX,remix
+97,Love is a Danger Zone 2 Full Song,YAHPP,100-162,NX,fullsong
+98,Beat of The War 2 Full Song,YAHPP,120-190,NX,fullsong
+99,Solitary 1.5,YAHPP,136,NX2,arcade
+100,Beat The Ghost,Banya Production,124,NX2,arcade
+101,Caprice of Otada,Banya Production,160,NX2,arcade
+102,Money,Banya Production,130,NX2,arcade
+103,Monkey Fingers 2,Banya Production,180,NX2,arcade
+104,Faster Z,YAHPP,162,NX2,arcade
+105,Pumptris Quattro,YAHPP,153,NX2,arcade
+106,Guitar Man,Banya Production,120,NX2,arcade
+107,Higgledy Piggledy,Banya Production,150,NX2,arcade
+108,Jam O Beat,Banya Production,120,NX2,arcade
+112,Banya-P Guitar Remix,Banya Production,120,NX2,remix
+113,Monkey Fingers,Banya Production,170,NX2,remix
+114,Blaze Emotion,YAHPP,170,NXA,arcade
+115,Cannon X.1,YAHPP,185,NXA,arcade
+116,Chopsticks Challenge,YAHPP,128,NXA,arcade
+120,The People didn't know,Banya Production,134,NXA,arcade
+121,DJ Otada,Banya Production,180,NXA,arcade
+122,K.O.A : Alice In Wonderworld,Banya Production,156,NXA,arcade
+123,My Dreams,Banya Production,136,NXA,arcade
+124,Toccata,Banya Production,104,NXA,arcade
+126,Final Audition Ep.2-X,YAHPP,170,NXA,arcade
+127,The People didn't know Pumping up,Banya Production,134,NXA,remix
+128,Caprice of DJ Otada,Banya Production,180,NXA,remix
+129,Dr. KOA,Banya Production,156,NXA,remix
+132,Turkey Virus,Banya Production,150-162,NXA,remix
+133,msgoon RMX pt.1,msgoon,120,NXA,remix
+135,Chopsticks Challenge,YAHPP,128,NXA,fullsong
+140,Pumptris 8Bit ver.,YAHPP,162,NXA,arcade
+141,XTREE,YAHPP,190,Fiesta,arcade
+142,Sorceress Elise,YAHPP,158,Fiesta,arcade
+143,Betrayer -act.2-,msgoon,92,Fiesta,arcade
+144,U Got 2 Know,MAX,127,Fiesta,arcade
+145,Destination,SHK,150,Fiesta,arcade
+146,Vacuum,Doin,200,Fiesta,arcade
+148,Do It Reggae Style,Banya Production,96,Fiesta,arcade
+149,Xenesis,Banya Production,152,Fiesta,arcade
+150,Arirang,Banya Production,160,Fiesta,arcade
+151,Tek -Club Copenhagen-,Banya Production,132,Fiesta,arcade
+152,Hello William,Banya Production,170,Fiesta,arcade
+153,Turkey March -Minimal Tunes-,Banya Production,130,Fiesta,arcade
+154,Get Up (and go),Banya Production,164,Fiesta,arcade
+155,Phantom -Intermezzo-,Banya Production,140,Fiesta,arcade
+156,Mission Possible -Blow Back-,Banya Production,128,Fiesta,arcade
+157,Pumping Jumping,Banya Production,116,Fiesta,arcade
+158,B.P Classic Remix,Banya Production,164,Fiesta,remix
+159,PaPa hellozing,Banya Production,145-158,Fiesta,remix
+160,B.P Classic Remix 2,Banya Production,180,Fiesta,remix
+163,Set Up Me2 Mix,Banya Production,122,Fiesta,remix
+165,msgoon RMX pt.6,msgoon,150,Fiesta,remix
+169,Final Audition 2,Banya,130,Fiesta,shortcut
+170,Final Audition 3,Banya,130,Fiesta,shortcut
+171,Final Audition EP.2-X,YAHPP,170,Fiesta,shortcut
+172,Love is a Danger Zone,Banya,140,Fiesta,shortcut
+173,Love is a Danger Zone pt.2,Banya,162,Fiesta,shortcut
+174,Extravaganza,Banya,195,Fiesta,shortcut
+175,CHICKEN WING,Banya,200,Fiesta,shortcut
+176,Winter,Banya,168,Fiesta,shortcut
+177,Solitary 2,Banya,136,Fiesta,shortcut
+178,Moonlight,Banya,180,Fiesta,shortcut
+179,Witch Doctor,Banya,195,Fiesta,shortcut
+180,Exceed2 Opening,Banya,178,Fiesta,shortcut
+181,NX Opening,YAHPP,133,Fiesta,shortcut
+182,K.O.A : Alice In Wonderworld,Banya Production,156,Fiesta,shortcut
+183,Bemera,YAHPP,210,Fiesta,shortcut
+184,Pumptris 8Bit ver.,YAHPP,162,Fiesta,shortcut
+185,Destination,SHK,150,Fiesta,shortcut
+187,Tepris,Doin,145,FiestaEX,arcade
+188,Napalm,Doin,185,FiestaEX,arcade
+190,Cleaner,Doin,203,FiestaEX,arcade
+191,Interference,Doin,180,FiestaEX,arcade
+192,Reality,SHK,135,FiestaEX,arcade
+193,Take Out,SHK,170,FiestaEX,arcade
+194,Butterfly,MAX & Rorychesell(SID-SOUND),128,FiestaEX,arcade
+195,Overblow,MAX,155,FiestaEX,arcade
+196,We Got 2 Know,MAX,128,FiestaEX,arcade
+198,What Happened,Throwdown,130,FiestaEX,arcade
+199,Gargoyle,Sanxion7,150,FiestaEX,arcade
+200,Allegro Con Fuoco,DM Ashura,156,FiestaEX,arcade
+201,Hungarian Dance V,Banya Production,145,FiestaEX,arcade
+202,The Devil,Banya Production,130-240,FiestaEX,arcade
+203,X-Rave,DM Ashura,147,FiestaEX,arcade
+204,Native,SHK,135,FiestaEX,arcade
+205,Smell Like A Chocolate,Vospi,175,FiestaEX,arcade
+206,Necromancy,Zircon,173,FiestaEX,arcade
+207,Vacuum Cleaner,Doin,222,FiestaEX,remix
+208,Everybody Got 2 Know,MAX,128,FiestaEX,remix
+209,Interference,Doin,180,FiestaEX,fullsong
+211,Trotpris,Doin,156,FiestaEX,shortcut
+212,Cleaner,Doin,203,FiestaEX,shortcut
+213,Take Out,SHK,170,FiestaEX,shortcut
+214,Overblow,MAX,155,FiestaEX,shortcut
+215,X-Rave,DM Ashura,147,FiestaEX,shortcut
+216,Pavane,V.A.,160,FiestaEX,arcade
+217,Pine Nut,Doin,200,FiestaEX,arcade
+218,ASDF,Doin,170,FiestaEX,arcade
+220,Jonathan's Dream,MAX&Seorryang (SID-SOUND),140,FiestaEX,arcade
+221,Monolith,Affinity,196,Fiesta2,arcade
+225,Ladybug,Coconut,133,Fiesta2,arcade
+226,Hardkore of the North,Diclonius Kid,190,Fiesta2,arcade
+228,Tribe Attacker,Hi-G,150,Fiesta2,arcade
+234,Utopia,Smiley,166,Fiesta2,arcade
+235,Xuxa,Smiley,160,Fiesta2,arcade
+237,Star Command,Zircon,155,Fiesta2,arcade
+238,Dream To Nightmare,Nightmare,178,Fiesta2,arcade
+239,VVV,ZiGZaG,310,Fiesta2,arcade
+240,Pop The Track,J-Mi & Midi-D & Ft. Hanna Stockzell,160,Fiesta2,arcade
+241,Passacaglia,SynthWulf,175,Fiesta2,arcade
+242,Baroque Virus,Zircon,135,Fiesta2,arcade
+243,Elise,DM Ashura,162,Fiesta2,arcade
+244,Ignis Fatuus(DM Ashura Mix),BanYa & DM Ashura,220,Fiesta2,arcade
+245,Love Is A Danger Zone(Cranky Mix),BanYa & Cranky,155,Fiesta2,arcade
+246,Hypnosis(SynthWulf Mix),BanYa & SynthWulf,175,Fiesta2,arcade
+247,FFF,Doin,200,Fiesta2,arcade
+248,Unique,SHK,145,Fiesta2,arcade
+249,Accident,MAX,183,Fiesta2,arcade
+250,D,MAX,180,Fiesta2,arcade
+251,U Got Me Rocking,MAX,128,Fiesta2,arcade
+252,Lucid(PIU Edit),Yak Won,40-190,Fiesta2,arcade
+257,Login,SHK,140,Fiesta2,arcade
+258,Windmill,Yak Won,246,Fiesta2,arcade
+259,Follow me,SHK,155,Fiesta2,arcade
+260,Yeo rae a,SID-SOUND,90,Fiesta2,arcade
+261,Mental Rider,SQUAR,120-140,Fiesta2,arcade
+262,Infinity RMX,SynthWulf & MAX,162,Fiesta2,remix
+263,What Are You Doin?,Doin & MAX,200,Fiesta2,remix
+264,Pop The Track,J-Mi & Midi-D & Ft. Hanna Stockzell,160,Fiesta2,shortcut
+265,Passacaglia,SynthWulf,175,Fiesta2,shortcut
+266,Ignis Fatuus(DM Ashura Mix),DM Ashura,220,Fiesta2,shortcut
+267,FFF,Doin,200,Fiesta2,shortcut
+268,Unique,SHK,145,Fiesta2,shortcut
+269,U Got Me Rocking,MAX,128,Fiesta2,shortcut
+270,Nemesis,M2U,160,Prime,arcade
+271,Katkoi,M2U,180,Prime,arcade
+272,Latino Virus,Warak,170,Prime,arcade
+273,Elysium,Warak,128,Prime,arcade
+274,Yog-Sothoth,Nato,200,Prime,arcade
+275,Silhouette Effect,Nato,167,Prime,arcade
+276,Chinese restaurant,Memme,175,Prime,arcade
+277,Avalanche,Memme,175,Prime,arcade
+278,Force of Ra,Memme,180,Prime,arcade
+279,Requiem,MAX,160,Prime,arcade
+280,You Got Me Crazy,MAX,128,Prime,arcade
+281,B2,MAX,158,Prime,arcade
+282,Meteorize,Paul Bazooka,136,Prime,arcade
+283,Mad5cience,Paul Bazooka,130,Prime,arcade
+284,Hestia,Gentle Stick,150,Prime,arcade
+285,Amphitryon,Gentle Stick,155,Prime,arcade
+286,Leakage Voltage,Doin,180,Prime,arcade
+287,Removable Disk0,Doin,130,Prime,arcade
+288,Super Fantasy,SHK,145,Prime,arcade
+289,Violet Perfume,SHK,140,Prime,arcade
+290,Red Swan,YAHPP,172,Prime,arcade
+291,Hyacinth,YAHPP,192,Prime,arcade
+292,Blaze Emotion(Band version),YAHPP,170,Prime,arcade
+293,1950,SLAM,200,Prime,arcade
+294,Sugar Conspiracy Theory,MAX,170,Prime,arcade
+295,Allegro Piu Mosso,DM Ashura,160,Prime,arcade
+296,Annihilator Method,DM Ashura,192,Prime,arcade
+297,Move That Body!,DM Ashura feat. Skizzo & Hanna,145,Prime,arcade
+298,Rock the house,Matduke,175,Prime,arcade
+299,Scorpion King,r300k,113,Prime,arcade
+300,Point Zero One,SynthWulf,170,Prime,arcade
+301,Red Snow,Cashew,170,Prime,arcade
+302,Campanella,Cashew,140,Prime,arcade
+303,You again my love,CYO Style & Henohenomoheji,137,Prime,arcade
+304,Robot Battle,CYO Style,198,Prime,arcade
+321,THE REVOLUTION,MAX & DOOM,160,Prime,arcade
+322,Selfishness,SID-SOUND,160,Prime,arcade
+323,Cosmical Rhythm,SID-SOUND,128,Prime,arcade
+324,Dolly KiSS,SID-SOUND,149,Prime,arcade
+325,MATADOR,Cranky,168,Prime,arcade
+326,Milky Way Galaxy,3R2,175,Prime,arcade
+327,Feel My Happiness,3R2,175,Prime,arcade
+328,Ragnarok,SynthWulf,170,Prime,arcade
+329,Achuoias,D_AAN,200,Prime,arcade
+330,Karyawisata,Versuvia x REDSHIFT,173,Prime,arcade
+331,video out C,Vospi,198,Prime,arcade
+337,Stardust Overdrive,typeMARS,175,Prime,arcade
+338,Reminiscence,MAX,155,Prime,arcade
+339,Moment Day,MAX,158,Prime,arcade
+340,Amai Yuuwaku Dangerous,Bakusute Sotokanda Icchome,125,Prime,arcade
+341,Yoropiku Pikuyoro!,Bakusute Sotokanda Icchome,198,Prime,arcade
+342,Imprinting,Sakuzyo,175,Prime,arcade
+343,Sudden Romance [PIU Edit],void,152,Prime,arcade
+344,Mitotsudaira,ETIA.,136,Prime,arcade
+345,Smile Diary,you,175,Prime,arcade
+346,Bad Apple!! feat. Nomico,Masayoshi Minoshima,138,Prime,arcade
+355,PRIME,Tatsh,165,Prime,arcade
+357,Queen Of The Red,ETIA.,188,Prime,arcade
+358,Idealized Romance,void,140,Prime,arcade
+359,Just Hold on (To All Fighters),void,170,Prime,arcade
+362,Break It Down,MAZO,176,Prime,arcade
+363,HYPERCUBE,MAX,145,Prime,arcade
+364,Like Me,SHK,155,Prime,arcade
+365,Beethoven Influenza,Banya & Warak,170,Prime,remix
+366,Avalanquiem,MAX & MEMME,175,Prime,remix
+367,PARADOXX,SLAM & NATO,220,Prime,remix
+371,Move That Body!,DM Ashura feat. Skizzo & Hanna,145,Prime,fullsong
+374,Bad Apple!! feat. Nomico,Masayoshi Minoshima,138,Prime,fullsong
+376,Super Fantasy,SHK,145,Prime,shortcut
+377,Yog-Sothoth,Nato,200,Prime,shortcut
+378,Silhouette Effect,Nato,167,Prime,shortcut
+379,Selfishness,SID-SOUND,160,Prime,shortcut
+380,Rock the house,Matduke,175,Prime,shortcut
+381,Move That Body!,DM Ashura feat. Skizzo & Hanna,145,Prime,shortcut
+382,PRIME Opening,MAX,128,Prime,shortcut
+383,Stardust Overdrive,typeMARS,175,Prime,shortcut
+385,Last Rebirth,SHK,120,Prime2,arcade
+386,Hellfire,Memme,170,Prime2,arcade
+387,God Mode feat. skizzo,Nato,152,Prime2,arcade
+388,Further,Doin,194,Prime2,arcade
+389,Bring Back The Beat,Lunatic Sounds,160,Prime2,arcade
+390,Sarabande,MAX,157,Prime2,arcade
+391,Arcana Force,mzet:-P,175,Prime2,arcade
+403,Death Moon,SHK,160,Prime2,arcade
+404,Christmas Memories,Warak,170,Prime2,arcade
+405,Asterious -ReEntry-,ATAS,148,Prime2,arcade
+406,Le Grand Bleu,KIEN,165,Prime2,arcade
+407,Vulcan,Memme,175,Prime2,remix
+409,Sarabande,MAX,157,Prime2,shortcut
+410,Death Moon,SHK,160,Prime2,shortcut
+466,Clue,Transin,140,Prime2,arcade
+469,Kasou Shinja,MAX,170,Prime2,arcade
+470,Chase Me,Dreamcatcher,200,Prime2,arcade
+472,STEP,SID-SOUND,156,Prime2,arcade
+474,HELIX,ESTi,175,Prime2,arcade
+475,Hyperion,M2U,145,Prime2,arcade
+476,HUSH,Yassi Pressman & Nadine Lustre,82,Prime2,arcade
+477,HUSH,Yassi Pressman & Nadine Lustre,82,Prime2,fullsong
+479,Utsushiyo No Kaze feat. Kana,void,152,Prime2,arcade
+480,Allegro Furioso,DM Ashura,176,Prime2,arcade
+481,Super Stylin',Warak,146,Prime2,arcade
+482,Start On Red,Nato,160,Prime2,arcade
+483,Good Night,Dreamcatcher,196,Prime2,arcade
+484,Redline,Archefluxx,170,Prime2,arcade
+487,PRIME2 Opening,MAX,145,Prime2,shortcut
+489,Shub Niggurath,Nato,220,Prime2,arcade
+491,Magical Vacation,SID-SOUND,154,Prime2,arcade
+493,Overblow2,MAX,155,Prime2,arcade
+494,Hey U,MAZO,162,Prime2,arcade
+495,BEDLAM,SANY-ON,183,Prime2,arcade
+496,Leather,Doin,200,Prime2,remix
+500,Fallen Angel,DM Ashura,157,Prime2,arcade
+501,Shub Niggurath,Nato,220,Prime2,shortcut
+502,Time Attack <Blue>,r300k,119,Prime2,arcade
+503,Kill Them!,Archefluxx,170,Prime2,arcade
+504,Chase Me,Dreamcatcher,200,Prime2,fullsong
+505,Keep On!,AmamoriP,185,Prime2,arcade
+506,Nakakapagpabagabag,Dasu feat. Kagamine Len,145,Prime2,arcade
+507,Heart Attack,DJ Counterforce,148,Prime2,arcade
+508,Cross Time,Brandy,160,Prime2,arcade
+509,V3,Beautiful Day,160,Prime2,arcade
+510,INFINITY,Lunatic Sounds,175,Prime2,arcade
+511,Super Capriccio,SHK,150,Prime2,arcade
+512,Anguished Unmaking,void,170,Prime2,arcade
+513,Twist of Fate (fet. Ruriling),Jehezukiel,141,Prime2,arcade
+514,HTTP,Quree,147,Prime2,arcade
+518,Hyperion,M2U,145,Prime2,shortcut
+519,Kasou Shinja,MAX,170,Prime2,shortcut
+521,Rave'til the earth's end,5argon,160,Prime2,arcade
+523,The Festival of Ghost2 (Sneak),Brandy,136,Prime2,arcade
+525,Donatello,Triplestar,175,Prime2,arcade
+526,Up & Up (Produced by AWAL),Skizzo,150,Prime2,arcade
+527,Travel to Future,Neutral Moon,160,Prime2,arcade
+528,SilverBeat,Tatsh,153,Prime2,arcade
+529,Tritium,Memme,180,Prime2,arcade
+530,Passing Rider,mzet:-P,175,Prime2,arcade
+531,Awakening,typeMARS,150,Prime2,arcade
+532,Gothique Resonance,P4Koo,174,Prime2,arcade
+533,Cross Over,HyuN,200,Prime2,arcade
+534,Walts of Doge,Cashew,125,Prime2,arcade
+535,Black Dragon,Memme,162,Prime2,arcade
+536,A Site De La Rue,STREME REVERIE,186,Prime2,arcade
+537,Gargoyle,Sanxion7,150,Prime2,fullsong
+538,Break Out,Lunatic Sounds,175,Prime2,arcade
+539,The Quick Brown Fox Jumps Over The Lazy Dog,Doin,200,Prime2,arcade
+540,Visual Dream II (In Fiction),Aragon,170,Prime2,arcade
+541,BSPower Explosion,Memme,180,Prime2,arcade
+542,ESCAPE,D_AAN,220,Prime2,arcade
+543,Shub Sothoth,Nato & EXC,220,Prime2,remix
+544,With My Lover,BanYa,124,3rd,arcade
+545,An Interesting View,BanYa,160,3rd,arcade
+546,Can Can,Radetzky,160,Extra,arcade
+547,Jump,BanYa,96,Zero,arcade
+548,BanYa-P Classic Mix,BanYa Production,92-180,NX,remix
+549,Ugly Duck Toccata,BanYa Production,104,NXA,remix
+550,Kitty Cat,Coconut,128,Fiesta2,arcade
+551,Wedding Crashers,SHK,165,XX,arcade
+552,Obliteration,ATAS,150,XX,arcade
+553,I Want U,MAX,156,XX,arcade
+554,Nyarlathotep,Nato,200,XX,arcade
+555,Skeptic,Doin,200,XX,arcade
+556,%X (Percent X),Pory,150,XX,arcade
+557,Le Grand Rouge,KIEN,166,XX,arcade
+558,Macaron Day,HyuN,173,XX,arcade
+559,Poseidon,Quree,160,XX,arcade
+560,VANISH,Applesoda,174,XX,arcade
+561,Kimchi Fingers,Garlic Squad,190,XX,arcade
+562,Fly high,Dreamcatcher,154,XX,arcade
+571,Club Night,Matduke,170,XX,arcade
+572,86,Dasu,167,XX,arcade
+573,Imagination,SHK,180,XX,arcade
+574,Black Swan,zeron,175,XX,arcade
+575,Obelisque,ESTi X M2U,130,XX,arcade
+576,Loki,Lotze,140,XX,arcade
+577,Dement ~After Legend~,Lunatic Sounds,210,XX,arcade
+578,Desaparecer,Applesoda vs MAX,174,XX,remix
+580,Nyarlathotep - SHORT CUT -,Nato,200,XX,shortcut
+581,Wedding Crashers - SHORT CUT -,SHK,165,XX,shortcut
+584,Timing,HIGHTEEN,164,XX,arcade
+585,Ice of Death,Fiverwater,172,XX,arcade
+586,Xeroize,FE,200,XX,arcade
+587,Nihilism -Another Ver.-,Nato,190,XX,arcade
+588,86,Dasu,167,XX,fullsong
+589,XX OPENING,MAX,175,XX,shortcut
+592,YOU AND I,Dreamcatcher,194,XX,arcade
+593,1949,SLAM,220,XX,arcade
+594,Rage of Fire,MAX,155,XX,arcade
+595,Meteo5cience (GADGET mix),Paul Bazooka,140,XX,remix
+596,Allegro Con Fuoco - FULL SONG -,DM Ashura,156,XX,fullsong
+598,Can-can ~Orpheus in The Party Mix~,Sr. Lan Belmont,195,XX,arcade
+599,Papasito feat. KuTiNA,Yakikaze & Cashew,128,XX,arcade
+600,Fires of Destiny,Jehezukiel,155,XX,arcade
+601,The End of the World ft. Skizzo,MonstDeath,150,XX,arcade
+602,Forgotten Vampire,WyvernP,137,XX,arcade
+603,Conflict,Siromaru + Cranky,160,XX,arcade
+605,Poseidon - SHORT CUT –,Quree,160,XX,shortcut
+608,HEART RABBIT COASTER,Nato,200,XX,arcade
+609,Tantanmen,Memme,185,XX,arcade
+610,F(R)IEND,D_AAN,200,XX,arcade
+611,Rising Star,M2U,140,XX,arcade
+613,Dignity,Crash,195,Exceed,arcade
+614,Dignity -FULL SONG-,Crash,195,Exceed,fullsong
+615,Full Moon,Dreamcatcher,190,XX,arcade
+616,CARMEN BUS,StaticSphere & FUGU SUISAN,170,XX,arcade
+617,Tales of Pumpnia,Applesoda,200,XX,arcade
+618,Orbit Stabilizer,DM Ashura,155,XX,arcade
+619,CROSS SOUL,HyuN feat. Syepias,200,XX,arcade
+620,"Phalanx ""RS2018 edit""",Cranky,145,XX,arcade
+621,Prime Time,Cashew,190,XX,remix
+627,JANUS,MAX,174,XX,arcade
+628,Lepton Strike,Nato,183,XX,arcade
+629,Wicked Legend,D_AAN,150,XX,arcade
+630,After a thousand years,TOTO,180,XX,arcade
+631,Lala,Yassi Pressman,126,XX,arcade
+632,Uranium,Memme,170,XX,arcade
+633,Your Mind,Roy Mikelate,180,XX,arcade
+636,Switronic,SHK,120-170,XX,arcade
+637,Transacaglia in G-minor,ATAS,158,XX,arcade
+638,Indestructible,Matduke,174,XX,arcade
+639,Cycling!,Yamajet,220,XX,arcade
+641,Switronic - SHORT CUT -,SHK,120,XX,shortcut
+643,District 1,MAX,158,XX,arcade
+644,Adrenaline Blaster,QWertism,150,XX,arcade
+645,Danger & Danger,Cranky,155,XX,arcade
+646,POINT ZERO 2,SYNTHWULF,170,XX,arcade
+647,Dual Racing <RED vs BLUE>,Nato & r300k,165,XX,arcade
+648,Fire Noodle Challenge,Memme,185,XX,remix
+652,Iolite Sky,Doin,90,XX,arcade
+653,La Cinquantatine,Pory,164,XX,arcade
+654,Broken Karma(PIU Edit),Quree,180,XX,arcade
+655,Cutie Song,Memme,174,XX,arcade
+658,I Want U - SHORT CUT -,MAX,156,XX,shortcut
+659,Jogging,LUCY,138,XX,arcade
+660,DESTRUCTIMATE,KURORAK,193,XX,arcade
+661,Clematis Rapsodia,Jehezukiel,260,XX,arcade
+662,Stardream (feat. Romelon),Cashew,160,XX,arcade
+663,Headless Chicken,r3ook,90.5,XX,arcade
+664,Over the Horizon,Yamajet,190,XX,arcade
+665,Houseplan,Houseplan,128,XX,arcade
+666,Baroque Virus - FULL SONG -,Zirccon,135,XX,fullsong
+667,ERRORCODE: 0,DOIN && SUNNY,200.1,XX,remix
+668,BRAIN POWER,NOMA,170-173,XX,arcade
+669,Life is PIANO,Junk,133,XX,arcade
+670,The Reverie,uma,133,XX,arcade
+671,God Mode 2.0 feat Skizzo,Nato,155,XX,arcade
+672,Full Moon - FULL SONG -,Dreamcatcher,190,XX,fullsong
+673,Crossing Delta,t+pazolite+Ginkiha+Hommarju,180,XX,arcade
+674,Harmagedon,HyuN vs lixound,194,XX,arcade
+675,Slapstick Parfait,t+pazolite,160,XX,arcade
+676,Paved Garden,Ginkiha,187,XX,arcade
+677,Pop Sequence,Hommarju,110,XX,arcade
+678,Night Duty,A.V.,140,FiestaEX,arcade
+679,Repentance,Abel,240,XX,arcade
+680,Sugar Plum,Mr. Weq,170,XX,arcade
+681,Telling Fortune Flower,Koharu feat. Renyata,200,XX,arcade
+682,GLORIA,Croire,245,XX,arcade
+683,Kokugen Kairou Labyrinth,A:llha (ANA + 2riA),215,XX,arcade
+684,Papasito (feat. KuTiNa) - FULL SONG -,Yakikaze & Cashew,128,XX,fullsong
+685,Ultimatum,Cosmograph,202,XX,arcade
+686,Mopemope,LeaF,100,XX,arcade
+687,Re : End of a Dream,uma vs. Morimori Atsushi,212,XX,arcade
+688,CROSS RAY (feat. 月下Lia),HyuN,176,XX,arcade
+689,Cygnus,nato,188,XX,arcade
+690,Tropicanic,SHK,145,XX,arcade
+691,Paradoxx - SHORT CUT -,SLAM & NATO,220,XX,shortcut
+692,Brown Sky,Doin,200,XX,remix
+693,GOOD NIGHT - FULL SONG -,Dreamcatcher,196,XX,fullsong
+702,STORM,KOYOTE,139,phoenix,arcade
+703,Airplane,TYPHOON,120,phoenix,arcade
+704,Vector,Zekk,178,phoenix,arcade
+705,Versailles,Hyun & MIIM,160-175,phoenix,arcade
+706,Showdown,litmus*,130,phoenix,arcade
+707,BOOOOM!!,RiraN,160,phoenix,arcade
+708,Euphorianic,SHK,140,phoenix,arcade
+709,Jupin,Sobrem,173,phoenix,arcade
+710,Ghroth,nato,212,phoenix,arcade
+711,KUGUTSU,onoken,220,phoenix,arcade
+712,Etude Op 10-4,MAX,176,phoenix,arcade
+713,MURDOCH,WONDERTRAVELER Project,179,phoenix,arcade
+714,Lohxia,The Musical Ghost,155,phoenix,arcade
+715,CHAOS AGAIN,NAOKI underground -Ω-,150-260,phoenix,arcade
+716,GOODTEK,EBIMAYO,190,phoenix,arcade
+717,CO5M1C R4ILR0AD,kanone,155,phoenix,arcade
+718,Energy Synergy Matrix,Tanchiky,160,phoenix,arcade
+719,Milk,Morimori Atsushi,150,phoenix,arcade
+720,Acquire,rhyki,155,phoenix,arcade
+721,Pneumonoultramicroscopicsilicovolcanoconiosis ft. Kagamine Len/GUMI,DASU,156,phoenix,arcade
+722,Altale,sakuzyo,90,phoenix,arcade
+723,GOODBOUNCE,EBIMAYO,180,phoenix,arcade
+724,R.I.P,eicateve,192,phoenix,arcade
+725,Halcyon,xi,40-191,phoenix,arcade
+726,BATTLE NO.1,TANO*C Sound Team,200,phoenix,arcade
+727,Lacrimosa,Fiverwater,210,phoenix,arcade
+728,Galaxy Collapse,Kurokotei,150-320,phoenix,arcade
+730,Euphorianic -SHORT CUT-,SHK,140,phoenix,shortcut
+731,Halloween Party ~Multiverse~,SHK,160,phoenix,arcade
+732,Barber's Madness,Klass E,195,phoenix,arcade
+733,Aragami,xi,48-196,phoenix,arcade
+735,Viyella's Nightmare,Laur,220,phoenix,arcade
+736,Neo Catharsis,TAG underground overlay,120-300,phoenix,arcade
+737,Yo! Say!! Fairy!!!,MYUKKE,150,phoenix,arcade
+738,Curiosity Overdrive,t+pazolite,192,phoenix,arcade
+740,iRELLiA,HyuN,204,phoenix,arcade
+741,PUPA,Morimori Atsushi,202,phoenix,arcade
+744,Bluish Rose,WyvernP,130,phoenix,arcade
+745,Flavor Step!,EmoCosine,150,phoenix,arcade
+746,TRICKL4SH 220,Lite Show Magic,220,phoenix,arcade
+747,See,Doin,293,phoenix,arcade
+748,Sudden Appearance Image,Blacklolita,170,phoenix,arcade
+749,Little Munchkin,Castellia,180,phoenix,arcade
+750,"Simon Says, EURODANCE!! (feat. Sara☆M)",Jehezukiel☆KAZEMURA☆Hideky,157,phoenix,arcade
+751,STAGER,Ras,146,phoenix,arcade
+752,Lucid Dream,Cosmograph,173,phoenix,arcade
+753,Solfeggietto,Fiverwater,157,phoenix,arcade
+754,Le Nozze di Figaro ~Celebrazione Remix~,Sr. Lan Belmont,172,phoenix,arcade
+755,PRiMA MATERiA,xi,187,phoenix,arcade
+756,Destr0yer,sakuzyo,90,phoenix,arcade
+760,Imperium,sakuzyo,174,phoenix,arcade
+761,hercules,Abel,195,phoenix,arcade
+762,wither garden,uma feat. Kanon Tachibana,168,phoenix,arcade
+763,Poppin' Shower,P*Light,175,phoenix,arcade
+764,Giselle,Sobrem a.k.a. Widowmaker,128-152,phoenix,arcade
+765,Big Daddy,USAO,190,phoenix,arcade
+766,Horang Pungryuga,Sangnoksu feat. HANANA,160,phoenix,arcade
+769,MEGAHEARTZ,DJ Noriken,200,phoenix,arcade
+770,Highway Chaser,Cosmograph,155,phoenix,arcade
+771,Earendel,Palami feat.neur6sia,180,phoenix,arcade
+772,Athena's Shield,Jehezukiel,176,phoenix,arcade
+773,Fracture Temporelle,Kurokotei,232,phoenix,arcade
+774,Rush-More,litmus*,160,phoenix,arcade
+775,Chobit Flavor,aran & t+pazolite,180,phoenix,arcade
+777,Appassionata,Cashew x D_AAN x Jehezukiel,160-210,phoenix,arcade
+778,Murdoch vs Otada,ESPITZ vs WONDERTRAVELER Project,180,phoenix,arcade
+779,Dancing,Said,151,phoenix,arcade
+780,Mahika,The Musical Ghost,188,phoenix,arcade
+781,Nostalgia,Woody,100,phoenix,arcade
+782,Stardream -Eurobeat Remix-,MAX x Cashew x Dave Rodgers,160,phoenix,arcade
+783,Hymn of Golden Glory,Essbee,244,phoenix,arcade
+784,Perpetual,Qu-ail,180,phoenix,arcade
+785,* this game does not exist *,litmus* x Ester,40-240,phoenix,arcade
+786,DUEL,Cashew & D_AAN,155,phoenix,arcade
+787,INVASION,D_AAN,220,phoenix,arcade
+788,Underworld ft. Skizzo (PIU Edit.),MonstDeath vs Neutral Moon,190,phoenix,arcade
+789,Odin,Gram,200,phoenix,arcade
+790,Soldiers (TANO*C W TEAM RED ANTHEM),DJ Noriken,170,phoenix,arcade
+791,Nyan-turne (feat. KuTiNA),Cashew & Castellia,202.1,phoenix,arcade
+792,Doppelganger,MonstDeath,210,phoenix,arcade
+793,SONIC BOOM,USAO,205,phoenix,arcade
+794,Extreme Music School 1st period feat. Nanahira,Massive New Krew & RoughSketch,210,phoenix,arcade
+795,Extreme Music School 2nd period feat. Nanahira,Massive New Krew & RoughSketch,210,phoenix,arcade
+796,E.O.N,HiTECH NINJA,165,phoenix,arcade
+797,Festival of Death Moon,SHK,204,phoenix,arcade
+798,Imaginarized City,Reku Mochizuki,156,phoenix,arcade
+799,Break Through Myself feat. Risa Yuzuki,DJ Myosuke & Laur,200,phoenix,arcade
+800,EMOMOMO,Ras,145,phoenix,arcade
+802,DISTRICT V,Zekk vs MAX,178,phoenix,remix
+803,Jupin - SHORT CUT -,Sobrem,173,phoenix,shortcut
+804,Darkside Of The Mind,DJ Myosuke,220,phoenix,arcade
+805,ESP,nato,175,phoenix,arcade
+806,New Rose,Hommarju,190,phoenix,arcade
+807,Crimson hood,Springhead,190,phoenix,arcade
+808,Nade Nade,Doin,100,phoenix,arcade
+809,Catastrophe,rareguy & MonstDeath,202,phoenix,arcade
+810,FLVSH OUT,Getty,160,phoenix,arcade
+811,Phoenix Opening - SHORT CUT -,MAX,174,phoenix,shortcut
+812,Ghroth - SHORT CUT -,nato,212,phoenix,shortcut
+813,1948,SLAM,240,phoenix,arcade
+814,Super Akuma Emperor,REDALiCE,240,phoenix,arcade
+815,Deca Dance,Yooh,160,phoenix,arcade
+816,Burn Out,WyvernP,190,phoenix,arcade
+817,Ultimate Eyes,HyuN,185,phoenix,arcade
+818,Rush-Hour,litmus*,112,phoenix,arcade
+819,Human Extinction (PIU Edit.),MonstDeath,199,phoenix,arcade
+820,Neo Catharsis - SHORT CUT -,TAG underground overlay,120-300,phoenix,shortcut
+821,Hymn of Golden Glory - SHORT CUT -,Essbee,244,phoenix,shortcut
+822,Vanish 2 - Roar of the invisible dragon,Applesoda,190,phoenix,arcade
+823,Solve My Hurt,Doin,234,phoenix,arcade
+824,Eternal Universe,Quree,200,phoenix,arcade
+825,Becouse of You,Srav3R & USAO,175,phoenix,arcade
+826,About The Universe,SOTUI & MIssionary,180,phoenix,arcade
+827,ALiVE,REDALiCE,170,phoenix,arcade
+828,Halloween Party ~Multiverse~ - SHORT CUT -,SHK,170,phoenix,shortcut
+829,Stardream -Eurobeat Remix- - SHORT CUT -,MAX x Cashew x Dave Rodgers,160,phoenix,shortcut
+830,4NT,PODA,180,phoenix,arcade
+831,The Apocalypse,HyuN feat. ElikaDA,171,phoenix,arcade
+832,Glimmer Gleam,Doin,85,phoenix,arcade
+833,Demon of Laplace,Quree,144,phoenix,arcade
+834,†DOOF†SENC†,Kobaryo,200,phoenix,arcade
+835,That Kitty (PIU Edit.),MonstDeath,190,phoenix,arcade
+836,Spooky Macaron,Sobrem,201,phoenix,arcade
+837,PRiMA MATERiA - SHORT CUT -,xi,187,phoenix,shortcut
+838,DUEL - SHORT CUT -,Cashew & D_AAN,155,phoenix,shortcut
+839,Dead End,Cosmograph,212,phoenix,arcade
+840,Binary star,SYNTHWULF,170,phoenix,arcade
+841,Alice in Misanthrope,LeaF,154-174,phoenix,arcade
+842,Solve My Hurt - SHORT CUT -,Doin,234,phoenix,shortcut
+843,Murdoch vs Otada - SHORT CUT -,ESPITZ vs WONDERTRAVELER Project,180,phoenix,shortcut
+844,SWEET WONDERLAND,MAX feat. ankimo,170,phoenix,arcade
+845,Heliosphere,BlackY,182,phoenix,arcade

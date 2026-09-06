@@ -1,11 +1,11 @@
 .venv
 __pycache__
 
-# Generated databases
-piu_songs.db
-piu_rerates.db
-piu_songs_final.db
+# # Generated databases
+# piu_songs.db
+# piu_rerates.db
+# piu_songs_final.db
 
-# Generated data files
-supplemental_songs.json
-piu_songs.csv
+# # Generated data files
+# supplemental_songs.json
+# piu_songs.csv

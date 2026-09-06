@@ -1,0 +1,79 @@
+[
+  {
+    "songID": 844,
+    "songName": "SWEET WONDERLAND",
+    "artist": "MAX feat. ankimo",
+    "bpm": 170,
+    "chartList": [
+      {
+        "chartType": "single",
+        "level": 3,
+        "tags": []
+      },
+      {
+        "chartType": "single",
+        "level": 5,
+        "tags": []
+      },
+      {
+        "chartType": "single",
+        "level": 8,
+        "tags": []
+      },
+      {
+        "chartType": "single",
+        "level": 12,
+        "tags": []
+      },
+      {
+        "chartType": "single",
+        "level": 15,
+        "tags": []
+      },
+      {
+        "chartType": "single",
+        "level": 17,
+        "tags": []
+      },
+      {
+        "chartType": "single",
+        "level": 20,
+        "tags": []
+      }
+    ],
+    "songType": "arcade",
+    "version": "phoenix",
+    "note": "Added from Phoenix 2 v2.12.0"
+  },
+  {
+    "songID": 845,
+    "songName": "Heliosphere",
+    "artist": "BlackY",
+    "bpm": 182,
+    "chartList": [
+      {
+        "chartType": "single",
+        "level": 14,
+        "tags": []
+      },
+      {
+        "chartType": "single",
+        "level": 18,
+        "tags": []
+      },
+      {
+        "chartType": "single",
+        "level": 21,
+        "tags": []
+      },
+      {
+        "chartType": "single",
+        "level": 23,
+        "tags": []
+      }
+    ],
+    "songType": "arcade",
+    "version": "phoenix",
+    "note": "Added from Phoenix 2 v2.12.0"
+  }
+]
