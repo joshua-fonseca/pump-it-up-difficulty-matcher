@@ -1,7 +1,7 @@
 # Usage:
 #     python build_db.py
 # Produces:
-#     piu_songs.db
+#     piu_songs.db, piu_songs.csv
 
 import json
 import sqlite3
@@ -23,6 +23,8 @@ BASE_DATA_FILE = JSON_DIR / "songlist_phoenix.json"
 REMOVED_FILE = JSON_DIR / "removed_songs.json"
 TITLE_CORRECTIONS_FILE = JSON_DIR / "title_corrections.json"
 ADDED_DIFFICULTIES_FILE = JSON_DIR / "added_difficulties.json"
+VERSION_ORDER_FILE = JSON_DIR / "version_order.json"
+
 
 # Generated lives at project root
 SUPPLEMENTAL_DATA_FILE = BASE_DIR / "supplemental_songs.json"
@@ -63,6 +65,13 @@ def load_added_difficulties(path: Path) -> dict[int, list[int]]:
     with open(path, encoding="utf-8") as f:
         data = json.load(f)
     return {entry["songID"]: entry["add"] for entry in data}
+
+def load_version_order(path: Path) -> list[tuple[str, int]]:
+    if not path.exists():
+        return []
+    with open(path, encoding="utf-8") as f:
+        data = json.load(f)
+    return [(entry["version"], entry["rank"]) for entry in data]
 
 def load_songs(path: Path) -> list[dict]:
     if not path.exists():
@@ -131,6 +140,20 @@ def build_database():
         )
     """)
 
+    cur.execute("""
+        CREATE TABLE versions (
+            version_name TEXT PRIMARY KEY,
+            release_rank INTEGER NOT NULL
+        )
+    """)
+
+    version_rows = load_version_order(VERSION_ORDER_FILE)
+    cur.executemany(
+        "INSERT OR IGNORE INTO versions (version_name, release_rank) VALUES (?, ?)",
+        version_rows,
+    )
+    print(f"Loaded {len(version_rows)} version(s) into the versions table.")
+
     song_rows = []
     chart_rows = []
     skipped_no_singles = 0
@@ -173,11 +196,6 @@ def build_database():
                     continue
                 singles.append({"level": new_level})
                 songs_with_new_difficulties.add(song_id)
-
-        # If this song has an override, its Singles list fully replaces
-        # whatever the base/supplemental/added data said (see load_overrides).
-        # if song_id in overrides:
-        #     singles = [{"level": lvl} for lvl in overrides[song_id]]
 
         if not singles:
             skipped_no_singles += 1
