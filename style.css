@@ -255,25 +255,21 @@ main {
   font-size: 0.85rem;
   font-weight: 600;
   font-variant-numeric: tabular-nums;
-  color: var(--text-muted);
+  color: var(--text);
   background: var(--surface-raised);
-  border: 1.5px solid transparent;
+  border: none;
 }
 
 .diff-chip.match-p1 {
-  border-color: var(--p1);
-  color: var(--p1);
+  background: var(--p1);
 }
 
 .diff-chip.match-p2 {
-  border-color: var(--p2);
-  color: var(--p2);
+  background: var(--p2);
 }
 
 .diff-chip.match-both {
-  border-color: var(--both);
-  color: var(--both);
-  background: rgba(242, 201, 76, 0.12);
+  background: linear-gradient(135deg, var(--p1) 50%, var(--p2) 50%);
 }
 
 .empty-state, .loading-state {

@@ -206,7 +206,7 @@ function renderResults() {
       </div>
       <div class="diff-row">
         ${song.difficulties.map((level) => `
-          <span class="diff-chip ${difficultyChipClass(level)}">${level}</span>
+          <span class="diff-chip ${difficultyChipClass(level)}"><span class="diff-number">${level}</span></span>
         `).join("")}
       </div>
     </div>
