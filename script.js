@@ -6,6 +6,7 @@ const state = {
   p1min: 1, p1max: 26,
   p2min: 1, p2max: 26,
   activeTypes: new Set(["arcade"]),
+    activeVersions: new Set(), // empty = all versions (populated once DB loads)
 };
 
 let db = null;
@@ -37,8 +38,24 @@ function loadRanges() {
     if (Array.isArray(saved.activeTypes)) {
       state.activeTypes = new Set(saved.activeTypes);
     }
+    if (Array.isArray(saved.activeVersions)) {
+      state.activeVersions = new Set(saved.activeVersions);
+    }
   } catch (e) {
     console.warn("Could not load saved ranges:", e);
+  }
+}
+
+function saveRanges() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({
+      p1min: state.p1min, p1max: state.p1max,
+      p2min: state.p2min, p2max: state.p2max,
+      activeTypes: [...state.activeTypes],
+      activeVersions: [...state.activeVersions],
+    }));
+  } catch (e) {
+    console.warn("Could not save ranges to localStorage:", e);
   }
 }
 
@@ -115,6 +132,103 @@ function syncFilterUI() {
   });
 }
 
+let allVersions = [];
+
+function getAllVersions() {
+  const result = db.exec(`
+    SELECT DISTINCT s.version, v.release_rank
+    FROM songs s
+    LEFT JOIN versions v ON v.version_name = s.version
+    ORDER BY v.release_rank DESC
+  `);
+  if (!result.length) return [];
+  return result[0].values.map((row) => row[0]);
+}
+
+function updateVersionDropdownLabel() {
+  const label = document.getElementById("version-dropdown-label");
+  const total = allVersions.length;
+  const selected = state.activeVersions.size;
+  if (selected === 0) {
+    label.textContent = "No versions selected";
+  } else if (selected === total) {
+    label.textContent = "All versions";
+  } else if (selected === 1) {
+    label.textContent = [...state.activeVersions][0];
+  } else {
+    label.textContent = `${selected} versions selected`;
+  }
+}
+
+function setupVersionDropdown() {
+  allVersions = getAllVersions();
+
+  // Nothing saved yet (fresh visitor) -> default to all versions included
+  if (state.activeVersions.size === 0) {
+    state.activeVersions = new Set(allVersions);
+  }
+
+  const menu = document.getElementById("version-dropdown-menu");
+  menu.innerHTML = allVersions.map((v) => `
+    <label class="version-option">
+      <input type="checkbox" value="${escapeHtml(v)}" ${state.activeVersions.has(v) ? "checked" : ""}>
+      ${escapeHtml(v)}
+    </label>
+  `).join("");
+
+  menu.querySelectorAll("input").forEach((box) => {
+    box.addEventListener("change", () => {
+      if (box.checked) {
+        state.activeVersions.add(box.value);
+      } else {
+        state.activeVersions.delete(box.value);
+      }
+      updateVersionDropdownLabel();
+      saveRanges();
+      renderResults();
+    });
+  });
+
+  function refreshVersionCheckboxes() {
+    document.querySelectorAll("#version-dropdown-menu input").forEach((box) => {
+      box.checked = state.activeVersions.has(box.value);
+    });
+  }
+
+  document.getElementById("version-select-all").addEventListener("click", () => {
+    state.activeVersions = new Set(allVersions);
+    refreshVersionCheckboxes();
+    updateVersionDropdownLabel();
+    saveRanges();
+    renderResults();
+  });
+
+  document.getElementById("version-deselect-all").addEventListener("click", () => {
+    state.activeVersions = new Set();
+    refreshVersionCheckboxes();
+    updateVersionDropdownLabel();
+    saveRanges();
+    renderResults();
+  });
+
+  const toggle = document.getElementById("version-dropdown-toggle");
+  toggle.addEventListener("click", () => {
+    const isOpen = !menu.hidden;
+    menu.hidden = isOpen;
+    toggle.setAttribute("aria-expanded", String(!isOpen));
+  });
+
+  document.addEventListener("click", (e) => {
+    const dropdown = document.getElementById("version-dropdown");
+    if (!dropdown.contains(e.target)) {
+      menu.hidden = true;
+      toggle.setAttribute("aria-expanded", "false");
+    }
+  });
+
+  updateVersionDropdownLabel();
+}
+
 // --- Database + matching query --------------------------------------------------------
 
 async function loadDatabase() {
@@ -140,6 +254,11 @@ async function loadDatabase() {
 function queryMatches() {
   const typeList = [...state.activeTypes].map((t) => `'${t}'`).join(",");
   if (!typeList) return [];
+  if (state.activeVersions.size === 0) return [];
+
+  const versionFilter = state.activeVersions.size < allVersions.length
+    ? `AND s.version IN (${[...state.activeVersions].map((v) => `'${v.replace(/'/g, "''")}'`).join(",")})`
+    : "";
 
   const sql = `
     SELECT s.song_id, s.title, s.version, s.song_type,
@@ -148,6 +267,7 @@ function queryMatches() {
     JOIN charts c ON c.song_id = s.song_id
     LEFT JOIN versions v ON v.version_name = s.version
     WHERE s.song_type IN (${typeList})
+      ${versionFilter}
       AND (
         c.difficulty BETWEEN ${state.p1min} AND ${state.p1max}
         OR c.difficulty BETWEEN ${state.p2min} AND ${state.p2max}
@@ -234,6 +354,7 @@ async function init() {
 
   try {
     await loadDatabase();
+    setupVersionDropdown();
     renderResults();
   } catch (e) {
     console.error("Failed to load database:", e);

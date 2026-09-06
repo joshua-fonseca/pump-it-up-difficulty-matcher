@@ -2,11 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>PIU Song Matcher</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -54,7 +51,7 @@
     </section>
 
     <section class="filter-section" aria-label="Filter by song type">
-      <span class="filter-label">Filter by song type</span>
+      <span class="filter-label">Filter by song length (song type)</span>
       <div class="chip-group" id="song-type-filters">
         <button class="chip" data-type="arcade" aria-pressed="true">Arcade</button>
         <button class="chip" data-type="remix" aria-pressed="false">Remix</button>
@@ -63,10 +60,28 @@
       </div>
     </section>
 
+<section class="filter-section" aria-label="Filter by version">
+  <div class="filter-label-row">
+    <span class="filter-label">Filter by version</span>
+    <span class="version-bulk-actions">
+      <button type="button" class="version-bulk-link" id="version-select-all">Select all</button>
+      <span class="version-bulk-divider">|</span>
+      <button type="button" class="version-bulk-link" id="version-deselect-all">Deselect all</button>
+    </span>
+  </div>
+  <div class="version-dropdown" id="version-dropdown">
+    <button type="button" class="version-dropdown-toggle" id="version-dropdown-toggle" aria-haspopup="true" aria-expanded="false">
+      <span id="version-dropdown-label">All versions</span>
+      <span class="version-dropdown-arrow">▾</span>
+    </button>
+    <div class="version-dropdown-menu" id="version-dropdown-menu" hidden></div>
+  </div>
+</section>
+
     <section class="results-section" aria-label="Matching songs">
       <div class="results-meta">
         <span id="results-count">Loading songs…</span>
-        <span class="order-note">Newest version first</span>
+        <span class="order-note">Latest songs are shown first</span>
       </div>
       <div id="results-list" class="results-list"></div>
     </section>
