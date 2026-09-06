@@ -1,7 +1,17 @@
-# Usage:
-#     python src/build_db.py
-# Produces:
-#     piu_songs.db, piu_songs.csv
+"""
+build_db.py
+
+Builds the Pump It Up song database from the base song dataset and
+supplemental song data. The resulting database contains only Singles ("S")
+charts, since that is the only chart type relevant to two players finding
+songs they can play together.
+
+Usage:
+    python src/build_db.py
+Produces:
+    piu_songs.db
+    piu_songs.csv
+"""
 
 import json
 import sqlite3
@@ -14,6 +24,8 @@ DATA_DIR = BASE_DIR / "data"
 JSON_DIR = DATA_DIR / "json"
 CSV_DIR = DATA_DIR / "csv"
 
+# Make sure these two directories exist
+# Create them if not already exists, otherwise continue as normal
 for d in (JSON_DIR, CSV_DIR):
     d.mkdir(parents=True, exist_ok=True)
 
@@ -25,20 +37,19 @@ TITLE_CORRECTIONS_FILE = JSON_DIR / "title_corrections.json"
 ADDED_DIFFICULTIES_FILE = JSON_DIR / "added_difficulties.json"
 VERSION_ORDER_FILE = JSON_DIR / "version_order.json"
 
-
-# Generated lives at project root
+# Generated files live at project root
 SUPPLEMENTAL_DATA_FILE = BASE_DIR / "supplemental_songs.json"
 SONGS_CSV_FILE = BASE_DIR / "piu_songs.csv"
 DB_FILE = BASE_DIR / "piu_songs.db"
 
 def export_songs_csv(conn: sqlite3.Connection, path: Path):
     cur = conn.cursor()
-    cur.execute("SELECT song_id, title, artist, version, song_type FROM songs ORDER BY title, song_id")
+    cur.execute("SELECT * FROM songs")
     rows = cur.fetchall()
 
     with open(path, "w", newline="", encoding="utf-8") as f:
         writer = csv.writer(f)
-        writer.writerow(["song_id", "title", "artist", "version", "song_type"])
+        writer.writerow(["song_id", "title", "artist", "bpm", "version", "song_type"])
         writer.writerows(rows)
 
     print(f"Exported {len(rows)} songs to {path.resolve()}")
@@ -47,29 +58,37 @@ def load_title_corrections(path: Path) -> dict[int, str]:
     if not path.exists():
         return {}
     with open(path, encoding="utf-8") as f:
+        # Expected format: [ { "songID": 123, "title": "Correct Title", "Note": "Corrected title" }, ... ]
+        # File is converted to a list of python dictionaries
         data = json.load(f)
     return {entry["songID"]: entry["title"] for entry in data}
 
+# Use a set for fast membership checking; a list would look at one item at a time
 def load_removed(path: Path) -> set[int]:
     if not path.exists():
         return set()
     with open(path, encoding="utf-8") as f:
+        # Expected format: [ { "songID": 123 "Note": "Deleted" }, ... ]
         data = json.load(f)
 
-    # go through every entry in data and collect its songIDs into a set
+    # Go through every entry in data and collect its songIDs into a set
     return {entry["songID"] for entry in data}
 
 def load_added_difficulties(path: Path) -> dict[int, list[int]]:
     if not path.exists():
         return {}
     with open(path, encoding="utf-8") as f:
+        # Expected format: [ { "songID": 123, "add": [22], "note": "New S22 chart added" }, ... ]
         data = json.load(f)
     return {entry["songID"]: entry["add"] for entry in data}
 
+# List preserves order which is important for this case, and tuples keep multiple items in a var
+# Dictionary or a list of lists could be viable here too
 def load_version_order(path: Path) -> list[tuple[str, int]]:
     if not path.exists():
         return []
     with open(path, encoding="utf-8") as f:
+        # Expected format: [ { "version": "1st", "rank": 0 }, ... ]
         data = json.load(f)
     return [(entry["version"], entry["rank"]) for entry in data]
 
@@ -77,18 +96,13 @@ def load_songs(path: Path) -> list[dict]:
     if not path.exists():
         return []
     with open(path, encoding="utf-8") as f:
+        # Expected format: { "songlist": [ { "songID": 123, ... , "chartlist":[ ... ] ] }
         data = json.load(f)
 
     # base file wraps songs in {"songlist": [...]};
     if isinstance(data, dict) and "songlist" in data: # does the dict have a key called songlist
         return data["songlist"]
-
-    # supplemental file is just a plain list for simplicity:
-    # [{"songID": 789, "singles": [...]}]
-    if isinstance(data, list):
-        return data
     raise ValueError(f"Unrecognized JSON shape in {path}")
-
 
 def build_database():
     songs = load_songs(BASE_DATA_FILE)
