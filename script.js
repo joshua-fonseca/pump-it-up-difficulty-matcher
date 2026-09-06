@@ -214,6 +214,14 @@ function setupVersionDropdown() {
     }
   });
 
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !menu.hidden) {
+      menu.hidden = true;
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.focus();
+    }
+  });
+
   updateVersionDropdownLabel();
 }
 

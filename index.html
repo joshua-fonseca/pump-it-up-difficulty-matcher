@@ -74,13 +74,13 @@
       <span id="version-dropdown-label">All versions</span>
       <span class="version-dropdown-arrow">▾</span>
     </button>
-    <div class="version-dropdown-menu" id="version-dropdown-menu" hidden></div>
+    <div class="version-dropdown-menu" id="version-dropdown-menu" role="group" aria-label="Version options" hidden></div>
   </div>
 </section>
 
     <section class="results-section" aria-label="Matching songs">
       <div class="results-meta">
-        <span id="results-count">Loading songs…</span>
+        <span id="results-count" aria-live="polite" aria-atomic="true">Loading songs…</span>
         <span class="order-note">Latest songs are shown first</span>
       </div>
       <div id="results-list" class="results-list"></div>
