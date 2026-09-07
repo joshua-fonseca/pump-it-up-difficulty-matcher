@@ -9,11 +9,17 @@ per-song loop identically to base-dataset songs.
 
 CSV format (one row per song):
 
-    songID,songName,artist,bpm,songType,version,difficulty,note
+    songID,songName,artist,bpm,songType,version,difficulty,note,displayedNote
+
+Two separate note fields are supported, serving different purposes:
+  - note: internal/dev-facing, shown in this script's own console output
+    for context, not stored in the database or shown in the app.
+  - displayedNote: shown to end users in the app itself (e.g. "(RISE)",
+    to distinguish this song as a steam-linked song).
 
 Example:
 
-    9001,Example New Song,Example Artist,150,arcade,random,11;17;21,Added after Phoenix 2 rerate
+    9001,Example New Song,Example Artist,150,arcade,random,11;17;21,Added in Phoenix 2,(RISE)
 
 The semicolon (`;`) is used to separate difficulty levels because commas
 are already used as the CSV column delimiter.
