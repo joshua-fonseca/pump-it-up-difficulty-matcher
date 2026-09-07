@@ -161,6 +161,14 @@ def build_database():
         )
     """)
 
+    cur.execute("""
+        CREATE TABLE song_notes (
+            song_id INTEGER PRIMARY KEY,
+            note TEXT NOT NULL,
+            FOREIGN KEY (song_id) REFERENCES songs(song_id)
+        )
+    """)
+
     version_rows = load_version_order(VERSION_ORDER_FILE)
     cur.executemany(
         "INSERT OR IGNORE INTO versions (version_name, release_rank) VALUES (?, ?)",
@@ -170,6 +178,7 @@ def build_database():
 
     song_rows = []
     chart_rows = []
+    note_rows = []
     skipped_no_singles = 0
     songs_with_new_difficulties = set()
 
@@ -216,6 +225,11 @@ def build_database():
             continue
 
         song_rows.append((song_id, title, artist, bpm, song.get("version"), song.get("songType")))
+
+        note = song.get("displayedNote")
+        if note:
+            note_rows.append((song_id, note))
+
         for chart in singles:
             level = chart.get("level")
             if level is not None:
@@ -229,9 +243,16 @@ def build_database():
         "INSERT INTO charts (song_id, difficulty) VALUES (?, ?)",
         chart_rows,
     )
+    cur.executemany(
+        "INSERT OR IGNORE INTO song_notes (song_id, note) VALUES (?, ?)",
+        note_rows,
+    )
 
     if songs_with_new_difficulties:
         print(f"Added new difficulties to {len(songs_with_new_difficulties)} song(s).")
+
+    if note_rows:
+        print(f"Added notes for {len(note_rows)} song(s).")
 
     conn.commit()
 

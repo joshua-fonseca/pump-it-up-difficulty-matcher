@@ -730,6 +730,38 @@
     "note": "Phoenix 2 v1.0.0"
   },
   {
+    "songID": 866,
+    "songName": "Rise Up feat. Miori Celesta",
+    "artist": "memme",
+    "bpm": 190,
+    "chartList": [
+      {
+        "chartType": "single",
+        "level": 11,
+        "tags": []
+      },
+      {
+        "chartType": "single",
+        "level": 16,
+        "tags": []
+      },
+      {
+        "chartType": "single",
+        "level": 18,
+        "tags": []
+      },
+      {
+        "chartType": "single",
+        "level": 22,
+        "tags": []
+      }
+    ],
+    "songType": "arcade",
+    "version": "phoenix2",
+    "note": "Phoenix 2 v1.0.0",
+    "displayedNote": "(RISE)"
+  },
+  {
     "songID": 876,
     "songName": "CALL ME BACK",
     "artist": "TNX",

@@ -95,6 +95,11 @@ def build_supplemental_songs(csv_path: Path) -> list[dict]:
                 if note:
                     song_entry["note"] = note
 
+                displayed_note = row.get("displayedNote", "").strip()
+
+                if displayed_note:
+                    song_entry["displayedNote"] = displayed_note
+
                 songs.append(song_entry)
 
     if skipped:

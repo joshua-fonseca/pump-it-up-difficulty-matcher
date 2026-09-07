@@ -282,6 +282,12 @@ main {
   flex-shrink: 0;
 }
 
+.song-note {
+  color: var(--text-muted);
+  font-weight: 400;
+  font-size: 0.85em;
+}
+
 .diff-row {
   display: flex;
   flex-wrap: wrap;

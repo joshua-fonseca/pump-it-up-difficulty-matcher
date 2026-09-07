@@ -290,11 +290,12 @@ function queryMatches() {
     : "";
 
   const sql = `
-    SELECT s.song_id, s.title, s.version, s.song_type,
+    SELECT s.song_id, s.title, s.version, s.song_type, n.note,
           GROUP_CONCAT(c.difficulty) as difficulties
     FROM songs s
     JOIN charts c ON c.song_id = s.song_id
     LEFT JOIN versions v ON v.version_name = s.version
+    LEFT JOIN song_notes n ON n.song_id = s.song_id
     WHERE s.song_type IN (${typeList})
       ${versionFilter}
       AND (
@@ -354,7 +355,7 @@ function renderResults() {
   listEl.innerHTML = matches.map((song) => `
     <div class="song-card">
       <div class="song-card-top">
-        <span class="song-title">${escapeHtml(song.title)}</span>
+        <span class="song-title">${escapeHtml(song.title)}${song.note ? ` <span class="song-note">${escapeHtml(song.note)}</span>` : ""}</span>
         <span class="song-version">${escapeHtml(song.version)}</span>
       </div>
       <div class="diff-row">
