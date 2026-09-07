@@ -12,7 +12,7 @@ CSV format (one row per chart, song metadata repeated per row):
     9001,Example New Song,Example Artist,150,arcade,random,21,
 
 Usage:
-    python csv_to_supplemental.py new_songs.csv supplemental_songs.json
+    python src/csv_to_supplemental.py data/csv/new_songs.csv supplemental_songs.json
 """
 
 import csv
