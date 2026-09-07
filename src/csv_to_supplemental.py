@@ -1,15 +1,22 @@
 """
-Converts a CSV of new songs (one row per Singles difficulty chart) into
-supplemental_songs.json, in the same song-object shape used elsewhere in
-this project (matching songlist_phoenix.json's structure), so these songs
-pass through build_db.py's per-song loop identically to base-dataset songs.
+Converts a CSV of new songs into supplemental_songs.json.
 
-CSV format (one row per chart, song metadata repeated per row):
+Each row represents one song, with all Singles difficulty charts stored
+in the `difficulty` field as a semicolon-separated list. The resulting
+supplemental_songs.json uses the same song-object shape as
+songlist_phoenix.json, so these songs pass through build_db.py's
+per-song loop identically to base-dataset songs.
+
+CSV format (one row per song):
+
     songID,songName,artist,bpm,songType,version,difficulty,note
 
-    9001,Example New Song,Example Artist,150,arcade,random,11,Added after Phoenix 2 rerate
-    9001,Example New Song,Example Artist,150,arcade,random,17,
-    9001,Example New Song,Example Artist,150,arcade,random,21,
+Example:
+
+    9001,Example New Song,Example Artist,150,arcade,random,11;17;21,Added after Phoenix 2 rerate
+
+The semicolon (`;`) is used to separate difficulty levels because commas
+are already used as the CSV column delimiter.
 
 Usage:
     python src/csv_to_supplemental.py data/csv/new_songs.csv supplemental_songs.json
@@ -26,70 +33,78 @@ def build_supplemental_songs(csv_path: Path) -> list[dict]:
     if not csv_path.exists():
         return []
 
-    rows_by_song: dict[int, list[dict]] = defaultdict(list)
+    songs = []
+    skipped = []
 
     with open(csv_path, encoding="utf-8-sig") as f:
         reader = csv.DictReader(f)
+
         for row in reader:
             song_id_raw = row.get("songID", "").strip()
+
             if not song_id_raw:
                 continue
+
             try:
                 song_id = int(song_id_raw)
             except ValueError:
                 print(f"Skipping row with non-numeric songID: {row}")
                 continue
-            rows_by_song[song_id].append(row)
 
-    songs = []
-    skipped = []
+            # Parse difficulties from semicolon-separated list
+            difficulty_raw = row.get("difficulty", "").strip()
+            difficulties = []
 
-    for song_id, rows in rows_by_song.items():
-        # Metadata fields should match across every row for this song.
-        meta_fields = ["songName", "artist", "bpm", "songType", "version"]
-        first = rows[0]
-        mismatched = [
-            field for field in meta_fields
-            if any(row.get(field, "").strip() != first.get(field, "").strip() for row in rows)
-        ]
-        if mismatched:
-            skipped.append((song_id, f"inconsistent {', '.join(mismatched)} across rows"))
-            continue
+            for level_raw in difficulty_raw.split(";"):
+                level_raw = level_raw.strip()
 
-        difficulties = []
-        for row in rows:
-            level_raw = row.get("difficulty", "").strip()
-            try:
-                difficulties.append(int(level_raw))
-            except ValueError:
-                skipped.append((song_id, f"invalid difficulty value: {level_raw!r}"))
-                break
-        else:
-            note = next((row.get("note", "").strip() for row in rows if row.get("note", "").strip()), "")
+                if not level_raw:
+                    continue
 
-            song_entry = {
-                "songID": song_id,
-                "songName": first["songName"].strip(),
-                "artist": first["artist"].strip(),
-                "bpm": int(first["bpm"]) if first["bpm"].strip().isdigit() else first["bpm"].strip(),
-                "chartList": [
-                    {"chartType": "single", "level": level, "tags": []}
-                    for level in sorted(difficulties)
-                ],
-                "songType": first["songType"].strip(),
-                "version": first["version"].strip(),
-            }
-            if note:
-                song_entry["note"] = note
+                try:
+                    difficulties.append(int(level_raw))
+                except ValueError:
+                    skipped.append(
+                        (song_id, f"invalid difficulty value: {level_raw!r}")
+                    )
+                    break
+            else:
+                song_entry = {
+                    "songID": song_id,
+                    "songName": row.get("songName", "").strip(),
+                    "artist": row.get("artist", "").strip(),
+                    "bpm": (
+                        int(row["bpm"].strip())
+                        if row.get("bpm", "").strip().isdigit()
+                        else row.get("bpm", "").strip()
+                    ),
+                    "chartList": [
+                        {
+                            "chartType": "single",
+                            "level": level,
+                            "tags": []
+                        }
+                        for level in sorted(difficulties)
+                    ],
+                    "songType": row.get("songType", "").strip(),
+                    "version": row.get("version", "").strip(),
+                }
 
-            songs.append(song_entry)
+                note = row.get("note", "").strip()
+
+                if note:
+                    song_entry["note"] = note
+
+                songs.append(song_entry)
 
     if skipped:
         print(f"\n{len(skipped)} song(s) skipped — needs manual review:")
+
         for song_id, reason in skipped:
             print(f"  - songID {song_id}: {reason}")
 
     songs.sort(key=lambda s: s["songID"])
+
     return songs
 
 

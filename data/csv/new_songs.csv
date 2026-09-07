@@ -1,12 +1,3 @@
 songID,songName,artist,bpm,songType,version,difficulty,note
-844,SWEET WONDERLAND,MAX feat. ankimo,170,arcade,phoenix,3,Added from Phoenix 2 v2.12.0
-844,SWEET WONDERLAND,MAX feat. ankimo,170,arcade,phoenix,5,Added from Phoenix 2 v2.12.0
-844,SWEET WONDERLAND,MAX feat. ankimo,170,arcade,phoenix,8,Added from Phoenix 2 v2.12.0
-844,SWEET WONDERLAND,MAX feat. ankimo,170,arcade,phoenix,12,Added from Phoenix 2 v2.12.0
-844,SWEET WONDERLAND,MAX feat. ankimo,170,arcade,phoenix,15,Added from Phoenix 2 v2.12.0
-844,SWEET WONDERLAND,MAX feat. ankimo,170,arcade,phoenix,17,Added from Phoenix 2 v2.12.0
-844,SWEET WONDERLAND,MAX feat. ankimo,170,arcade,phoenix,20,Added from Phoenix 2 v2.12.0
-845,Heliosphere,BlackY,182,arcade,phoenix,14,Added from Phoenix 2 v2.12.0
-845,Heliosphere,BlackY,182,arcade,phoenix,18,Added from Phoenix 2 v2.12.0
-845,Heliosphere,BlackY,182,arcade,phoenix,21,Added from Phoenix 2 v2.12.0
-845,Heliosphere,BlackY,182,arcade,phoenix,23,Added from Phoenix 2 v2.12.0
+844,Heliosphere,BlackY,182,arcade,phoenix,14;18;21;23,Phoenix 2 v2.12.0
+845,SWEET WONDERLAND,MAX feat. ankimo,170,arcade,phoenix,3;5;8;12;15;17;20,Phoenix v2.12.0

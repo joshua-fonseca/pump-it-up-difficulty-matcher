@@ -2,5 +2,6 @@
   { "songID": 271, "add": [22], "note": "New S22 chart added" },
   { "songID": 653, "add": [22], "note": "New S22 chart added" },
   { "songID": 28, "add": [15, 17], "note": "New S15 and S17 charts added" },
-  { "songID": 341, "add": [22, 20], "note": "New S22 and S20 charts added" }
+  { "songID": 341, "add": [22, 20], "note": "New S22 and S20 charts added" },
+  { "songID": 594, "add": [20], "note": "New S20 chart added" }
 ]
