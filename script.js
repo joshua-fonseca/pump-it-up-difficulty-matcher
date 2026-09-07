@@ -277,10 +277,6 @@ async function loadDatabase() {
 // A song matches if it has at least one Singles chart within EACH
 // player's range independently — the two players don't need to share
 // the exact same difficulty number, they each just need something
-// playable in the same song.
-// A song matches if it has at least one Singles chart within EACH
-// player's range independently — the two players don't need to share
-// the exact same difficulty number, they each just need something
 // playable in the same song. Ordering by newest version first is done
 // here in SQL via the versions table, rather than in JS, since the
 // version ordering is now data (see version_order.json / build_db.py)
