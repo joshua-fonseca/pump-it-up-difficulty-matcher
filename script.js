@@ -80,11 +80,44 @@ function handleStep(target, dir) {
 
 function setupSteppers() {
   document.querySelectorAll(".step-btn").forEach((btn) => {
-    btn.addEventListener("click", () => {
+    let holdTimer = null;
+    let holdStarted = false;
+
+    const step = () => {
       const target = btn.dataset.target;
       const dir = parseInt(btn.dataset.dir, 10);
       handleStep(target, dir);
+    };
+
+    btn.addEventListener("pointerdown", (e) => {
+      e.preventDefault();
+
+      // Immediate step on press
+      step();
+
+      // Start repeating after a short delay
+      holdTimer = setTimeout(() => {
+        holdStarted = true;
+
+        holdTimer = setInterval(() => {
+          step();
+        }, 100);
+      }, 400);
     });
+
+    const stopHold = () => {
+      if (holdTimer !== null) {
+        clearTimeout(holdTimer);
+        clearInterval(holdTimer);
+        holdTimer = null;
+      }
+
+      holdStarted = false;
+    };
+
+    btn.addEventListener("pointerup", stopHold);
+    btn.addEventListener("pointercancel", stopHold);
+    btn.addEventListener("pointerleave", stopHold);
   });
 }
 
