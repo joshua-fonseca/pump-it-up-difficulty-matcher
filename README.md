@@ -176,18 +176,21 @@ that version.
 #### `data/csv/new_songs.csv`
 Type: CSV (optional)
 
-Songs released after the base dataset's snapshot, entered manually by
+Songs released after the base dataset's snapshot. These are entered by hand
+into the same
+[processed rerates and removals sheet](https://docs.google.com/spreadsheets/d/1DUMNMJJqfnBMCe_tdNmKEJyV_JGmkqqVBelZW0WIfSo/edit?usp=sharing)
+described under `data/csv/piu_rerates.csv` below, in a separate tab, by
 watching official gameplay/reveal videos on the
 [official Pump It Up YouTube channel](https://www.youtube.com/@PUMPITUPOfficial)
-(one row per Singles difficulty chart). This is done manually rather than
-scraped, see **Features** above for why. Regenerates
+(one row per song, difficulties listed as a semicolon-separated list). That
+tab is then exported from the sheet as `new_songs.csv`. This is done
+manually rather than scraped, see **Features** above for why. Regenerates
 `supplemental_songs.json` on every `build_db.py` run.
 
 Example:
 ```csv
 songID,songName,artist,bpm,songType,version,difficulty,note
-9001,Example New Song,Example Artist,150,arcade,random,11,
-9001,Example New Song,Example Artist,150,arcade,random,17,
+9001,Example New Song,Example Artist,150,arcade,random,11;17;21,Added after Phoenix 2 rerate
 ```
 
 #### `data/json/removed_songs.json`
@@ -236,7 +239,8 @@ Reddit post and its accompanying
 then reprocessed by hand into the long-format CSV this pipeline expects, see
 the
 [processed sheet](https://docs.google.com/spreadsheets/d/1DUMNMJJqfnBMCe_tdNmKEJyV_JGmkqqVBelZW0WIfSo/edit?usp=sharing)
-for the cleaned version.
+for the cleaned version. This same sheet also holds the hand-entered new-song
+data described under `data/csv/new_songs.csv` above, in a separate tab.
 
 ## Contributing
 
@@ -249,7 +253,7 @@ the build pipeline or the frontend.
 * Project homepage: `https://joshua-fonseca.github.io/pump-it-up-difficulty-matcher/`
 * Repository: `https://github.com/joshua-fonseca/pump-it-up-difficulty-matcher`
 * Base dataset source: [pugkung/piutool](https://github.com/pugkung/piutool)
-* Chart rerate data: [r/PumpItUp rerates and removals post](https://www.reddit.com/r/PumpItUp/comments/1tji3wg/pump_it_up_phoenix_2_chart_rerates_and_removals/), [original Google Sheet](https://docs.google.com/spreadsheets/d/1MhrFJf9Mnp5i5-cqWgeRvqcJZmzlDPwheLdQL4S1vaQ/edit?gid=1983447790#gid=1983447790), [processed sheet used by this project](https://docs.google.com/spreadsheets/d/1DUMNMJJqfnBMCe_tdNmKEJyV_JGmkqqVBelZW0WIfSo/edit?usp=sharing)
+* Chart rerate data: [r/PumpItUp rerates and removals post](https://www.reddit.com/r/PumpItUp/comments/1tji3wg/pump_it_up_phoenix_2_chart_rerates_and_removals/), [original Google Sheet](https://docs.google.com/spreadsheets/d/1MhrFJf9Mnp5i5-cqWgeRvqcJZmzlDPwheLdQL4S1vaQ/edit?gid=1983447790#gid=1983447790), [processed sheet used by this project](https://docs.google.com/spreadsheets/d/1DUMNMJJqfnBMCe_tdNmKEJyV_JGmkqqVBelZW0WIfSo/edit?usp=sharing) (also the source for hand-entered new songs)
 * New song data: [official Pump It Up YouTube channel](https://www.youtube.com/@PUMPITUPOfficial)
 * sql.js (frontend SQLite engine): [sql-js/sql.js](https://github.com/sql-js/sql.js)
 
