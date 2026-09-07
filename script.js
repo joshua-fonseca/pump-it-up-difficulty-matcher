@@ -80,8 +80,9 @@ function handleStep(target, dir) {
 
 function setupSteppers() {
   document.querySelectorAll(".step-btn").forEach((btn) => {
-    let holdTimer = null;
-    let holdStarted = false;
+    let holdTimeout = null;
+    let holdInterval = null;
+    let pointerSteppedThisPress = false;
 
     const step = () => {
       const target = btn.dataset.target;
@@ -91,33 +92,37 @@ function setupSteppers() {
 
     btn.addEventListener("pointerdown", (e) => {
       e.preventDefault();
-
-      // Immediate step on press
+      pointerSteppedThisPress = true;
       step();
 
-      // Start repeating after a short delay
-      holdTimer = setTimeout(() => {
-        holdStarted = true;
-
-        holdTimer = setInterval(() => {
-          step();
-        }, 100);
+      holdTimeout = setTimeout(() => {
+        holdInterval = setInterval(step, 100);
       }, 400);
     });
 
     const stopHold = () => {
-      if (holdTimer !== null) {
-        clearTimeout(holdTimer);
-        clearInterval(holdTimer);
-        holdTimer = null;
-      }
-
-      holdStarted = false;
+      clearTimeout(holdTimeout);
+      clearInterval(holdInterval);
+      holdTimeout = null;
+      holdInterval = null;
     };
 
     btn.addEventListener("pointerup", stopHold);
     btn.addEventListener("pointercancel", stopHold);
     btn.addEventListener("pointerleave", stopHold);
+
+    // Keyboard accessibility: Enter/Space fires a "click" event, but never
+    // pointerdown/pointerup, so without this keyboard and screen-reader
+    // users couldn't use the steppers at all. Skip when a pointer already
+    // handled this press, since a real click also fires right after
+    // pointerup on mouse/touch.
+    btn.addEventListener("click", () => {
+      if (pointerSteppedThisPress) {
+        pointerSteppedThisPress = false;
+        return;
+      }
+      step();
+    });
   });
 }
 
