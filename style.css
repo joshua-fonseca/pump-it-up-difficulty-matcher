@@ -227,6 +227,56 @@ main {
   border-color: var(--text-muted);
 }
 
+.view-toggle {
+  display: flex;
+  gap: 8px;
+}
+
+.view-toggle-btn {
+  flex: 1;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  padding: 10px 14px;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.12s ease;
+}
+
+.view-toggle-btn[aria-pressed="true"] {
+  background: var(--surface-raised);
+  color: var(--text);
+  border-color: var(--text-muted);
+}
+
+/* Horizontal mode: cards sit side by side, drag/scroll to see more */
+.results-list.horizontal {
+  flex-direction: row;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x proximity;
+  padding-bottom: 4px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.results-list.horizontal .song-card {
+  flex: 0 0 calc(50% - 5px);
+  scroll-snap-align: start;
+}
+
+/* Optional: thin, unobtrusive scrollbar instead of the browser default */
+.results-list.horizontal::-webkit-scrollbar {
+  height: 4px;
+}
+
+.results-list.horizontal::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
 /* --- Results --- */
 
 .results-section {
@@ -289,6 +339,17 @@ main {
 }
 
 .diff-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.diff-row.split {
+  flex-direction: column;
+  gap: 6px;
+}
+
+.diff-line {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;

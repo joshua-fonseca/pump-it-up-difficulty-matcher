@@ -6,7 +6,8 @@ const state = {
   p1min: 1, p1max: 26,
   p2min: 1, p2max: 26,
   activeTypes: new Set(["arcade"]),
-    activeVersions: new Set(), // empty = all versions (populated once DB loads)
+  activeVersions: new Set(), // empty = all versions (populated once DB loads)
+  viewMode: "vertical", // "vertical" | "horizontal"
 };
 
 let db = null;
@@ -41,6 +42,7 @@ function saveRanges() {
       p2min: state.p2min, p2max: state.p2max,
       activeTypes: [...state.activeTypes],
       activeVersions: [...state.activeVersions],
+      viewMode: state.viewMode,
     }));
   } catch (e) {
     console.warn("Could not save ranges to localStorage:", e);
@@ -338,6 +340,37 @@ function difficultyChipClass(level) {
   return "";
 }
 
+function chipHtml(level) {
+  return `
+    <span class="diff-chip ${difficultyChipClass(level)}"><span class="diff-number">${level}</span></span>
+  `;
+}
+
+// In vertical view, all of a song's matching difficulties render on one
+// wrapping row. In horizontal view, cards are narrower (half-width), so
+// difficulties are split onto two lines instead: Player 1's matching
+// levels on top, Player 2's on the bottom. A level that works for both
+// players appears on both lines, since it genuinely qualifies for either.
+function buildDiffRow(song) {
+  if (state.viewMode !== "horizontal") {
+    return `
+      <div class="diff-row">
+        ${song.difficulties.map(chipHtml).join("")}
+      </div>
+    `;
+  }
+
+  const p1Levels = song.difficulties.filter((level) => level >= state.p1min && level <= state.p1max);
+  const p2Levels = song.difficulties.filter((level) => level >= state.p2min && level <= state.p2max);
+
+  return `
+    <div class="diff-row split">
+      <div class="diff-line">${p1Levels.map(chipHtml).join("")}</div>
+      <div class="diff-line">${p2Levels.map(chipHtml).join("")}</div>
+    </div>
+  `;
+}
+
 function renderResults() {
   if (!db) return;
 
@@ -350,6 +383,7 @@ function renderResults() {
 
   if (matches.length === 0) {
     listEl.innerHTML = `<div class="empty-state">No songs match both ranges yet. Try widening a range or a filter.</div>`;
+    listEl.classList.toggle("horizontal", state.viewMode === "horizontal");
     return;
   }
 
@@ -359,19 +393,47 @@ function renderResults() {
         <span class="song-title">${escapeHtml(song.title)}${song.note ? ` <span class="song-note">${escapeHtml(song.note)}</span>` : ""}</span>
         <span class="song-version">${escapeHtml(song.version)}</span>
       </div>
-      <div class="diff-row">
-        ${song.difficulties.map((level) => `
-          <span class="diff-chip ${difficultyChipClass(level)}"><span class="diff-number">${level}</span></span>
-        `).join("")}
-      </div>
+      ${buildDiffRow(song)}
     </div>
   `).join("");
+
+  listEl.classList.toggle("horizontal", state.viewMode === "horizontal");
 }
 
 function escapeHtml(str) {
   const div = document.createElement("div");
   div.textContent = str;
   return div.innerHTML;
+}
+
+// --- Toggle setup ------------------------------------------------
+
+function applyViewMode() {
+  const listEl = document.getElementById("results-list");
+  listEl.classList.toggle("horizontal", state.viewMode === "horizontal");
+
+  document.getElementById("view-vertical-btn")
+    .setAttribute("aria-pressed", String(state.viewMode === "vertical"));
+  document.getElementById("view-horizontal-btn")
+    .setAttribute("aria-pressed", String(state.viewMode === "horizontal"));
+}
+
+function setupViewToggle() {
+  document.getElementById("view-vertical-btn").addEventListener("click", () => {
+    state.viewMode = "vertical";
+    applyViewMode();
+    saveRanges();
+    renderResults();
+  });
+
+  document.getElementById("view-horizontal-btn").addEventListener("click", () => {
+    state.viewMode = "horizontal";
+    applyViewMode();
+    saveRanges();
+    renderResults();
+  });
+
+  applyViewMode();
 }
 
 // --- Init --------------------------------------------------------
@@ -382,6 +444,7 @@ async function init() {
   syncFilterUI();
   setupSteppers();
   setupFilters();
+  setupViewToggle();
 
   try {
     await loadDatabase();
