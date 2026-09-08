@@ -348,9 +348,9 @@ function chipHtml(level) {
 
 // In vertical view, all of a song's matching difficulties render on one
 // wrapping row. In horizontal view, cards are narrower (half-width), so
-// difficulties are split onto two lines instead: Player 1's matching
+// difficulties are split onto three lines instead: Player 1's matching
 // levels on top, Player 2's on the bottom. A level that works for both
-// players appears on both lines, since it genuinely qualifies for either.
+// players appears on a seperate line.
 function buildDiffRow(song) {
   if (state.viewMode !== "horizontal") {
     return `
@@ -360,15 +360,28 @@ function buildDiffRow(song) {
     `;
   }
 
-  const p1Levels = song.difficulties.filter((level) => level >= state.p1min && level <= state.p1max);
-  const p2Levels = song.difficulties.filter((level) => level >= state.p2min && level <= state.p2max);
+  const p1Only = [];
+  const sharedLevels = [];
+  const p2Only = [];
 
-  return `
-    <div class="diff-row split">
-      <div class="diff-line">${p1Levels.map(chipHtml).join("")}</div>
-      <div class="diff-line">${p2Levels.map(chipHtml).join("")}</div>
-    </div>
-  `;
+  song.difficulties.forEach((level) => {
+    const inP1 = level >= state.p1min && level <= state.p1max;
+    const inP2 = level >= state.p2min && level <= state.p2max;
+    if (inP1 && inP2) {
+      sharedLevels.push(level);
+    } else if (inP1) {
+      p1Only.push(level);
+    } else if (inP2) {
+      p2Only.push(level);
+    }
+  });
+
+  const lines = [p1Only, sharedLevels, p2Only]
+    .filter((levels) => levels.length > 0)
+    .map((levels) => `<div class="diff-line">${levels.map(chipHtml).join("")}</div>`)
+    .join("");
+
+  return `<div class="diff-row split">${lines}</div>`;
 }
 
 function renderResults() {
