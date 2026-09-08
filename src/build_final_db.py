@@ -31,11 +31,14 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# generated, root
 BASE_DB_FILE = BASE_DIR / "piu_songs.db"
 RERATES_DB_FILE = BASE_DIR / "piu_rerates.db"
+
 FINAL_DB_FILE = BASE_DIR / "piu_songs_final.db"
 
 def build_final_db():
+    # Preconditions
     if not BASE_DB_FILE.exists():
         raise FileNotFoundError(f"{BASE_DB_FILE} does not exist. Run build_db.py first.")
     if not RERATES_DB_FILE.exists():
@@ -44,13 +47,24 @@ def build_final_db():
     # Copy the base database rather than modifying it in place, so
     # piu_songs.db always remains the untouched, pre-rerate snapshot.
     if FINAL_DB_FILE.exists():
-        FINAL_DB_FILE.unlink()
-    shutil.copy(BASE_DB_FILE, FINAL_DB_FILE)
+        FINAL_DB_FILE.unlink() # Using pathlib.unlink() method, instead of older os.remove() method
+    shutil.copy(BASE_DB_FILE, FINAL_DB_FILE) # base database stays untouched
 
+    # SQLite-specific trick
+    # ATTACH DATABASE allows to bring a second SQLite file into the same
+    # connection, under an alias (rerates here).
+    # Once attached, able to write SQL that joins across both databases in a single query,
+    # referring to tables as rerates.raw_rerates, and main.songs / main.charts
+    # (from the primary connection, main.
     conn = sqlite3.connect(FINAL_DB_FILE)
     conn.execute(f"ATTACH DATABASE '{RERATES_DB_FILE}' AS rerates")
     cur = conn.cursor()
 
+    # main.songs:          song_id   title      artist bpm version    song_type
+    # rerates.raw_rerates: rerate_id final_name old_rating new_rating song_type
+    # Goal is to match on title + song_type
+    # Title alone isn't enough to match, as there can be a title with a
+    # shortcut length chart and arcade length chart.
     cur.execute("""
         SELECT c.chart_id, r.final_name, r.song_type_raw,
                r.old_rating_processed, r.new_rating_processed
@@ -64,10 +78,12 @@ def build_final_db():
     """)
     matches = cur.fetchall()
 
+    # Building a set of "successfully matched" keys, for later use. Set comprehension.
     matched_rerate_keys = {
         (m[1].strip().lower(), m[2].strip().lower(), m[3].strip()) for m in matches
     }
 
+    # Applying the updates
     for chart_id, final_name, song_type_raw, old_rating, new_rating in matches:
         cur.execute(
             "UPDATE main.charts SET difficulty = ? WHERE chart_id = ?",
@@ -76,6 +92,7 @@ def build_final_db():
 
     conn.commit()
 
+    # Finding rerates that didn't match anything, for the report
     cur.execute("SELECT final_name, song_type_raw, old_rating_processed, new_rating_processed FROM rerates.raw_rerates")
     all_rerates = cur.fetchall()
 
@@ -84,6 +101,7 @@ def build_final_db():
         if (row[0].strip().lower(), row[1].strip().lower(), row[2].strip()) not in matched_rerate_keys
     ]
 
+    # Reporting
     print(f"Copied {BASE_DB_FILE} -> {FINAL_DB_FILE} ({FINAL_DB_FILE.resolve()}).")
     print(f"Applied {len(matches)} rerate(s) to the copy. {BASE_DB_FILE} was not modified.")
     if skipped:
