@@ -22,18 +22,19 @@ import sys
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 RERATES_DB_FILE = BASE_DIR / "piu_rerates.db"  # generated, root
 
-
 def build_rerates_db(csv_path: Path):
+    # Uses csv.reader(), not csv.DictReader() like csv_to_supplemental.py
+    # csv.reader() gives each row as a plain list of strings
+    # csv.DictReader() is safer but reader is more so or dropping the data "as-is"
     with open(csv_path, encoding="utf-8-sig") as f:
         reader = csv.reader(f)
-        header = next(reader)
-        rows = list(reader)
+        header = next(reader) # pull first row
+        rows = list(reader) # list of lists
 
     if RERATES_DB_FILE.exists():
-        RERATES_DB_FILE.unlink()
+        RERATES_DB_FILE.unlink() # Using pathlib.unlink() method, instead of older os.remove() method
 
     conn = sqlite3.connect(RERATES_DB_FILE)
     cur = conn.cursor()
@@ -49,6 +50,10 @@ def build_rerates_db(csv_path: Path):
         "song_type_raw",
     ]
 
+    # Building and running the CREATE TABLE statement
+    # Turns ["final_name", "old_rating_processed", ...] into the string:
+    # final_name TEXT, old_rating_processed TEXT, new_rating_processed TEXT, song_type_raw TEXT
+    # which gets spliced into the CREATE TABLE statement.
     cur.execute(f"""
         CREATE TABLE raw_rerates (
             rerate_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -56,6 +61,9 @@ def build_rerates_db(csv_path: Path):
         )
     """)
 
+    # Final SQL looks like:
+    # INSERT INTO raw_rerates (final_name, old_rating_processed, new_rating_processed, song_type_raw)
+    # VALUES (?, ?, ?, ?)
     cur.executemany(
         f"INSERT INTO raw_rerates ({', '.join(column_names)}) VALUES ({', '.join('?' * len(column_names))})",
         rows,
