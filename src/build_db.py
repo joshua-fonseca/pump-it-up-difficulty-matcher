@@ -282,6 +282,5 @@ def build_database():
 
     conn.close()
 
-
 if __name__ == "__main__":
     build_database()
