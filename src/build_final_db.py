@@ -105,7 +105,7 @@ def build_final_db():
     print(f"Copied {BASE_DB_FILE} -> {FINAL_DB_FILE} ({FINAL_DB_FILE.resolve()}).")
     print(f"Applied {len(matches)} rerate(s) to the copy. {BASE_DB_FILE} was not modified.")
     if skipped:
-        print(f"\n{len(skipped)} rerate row(s) could not be matched — needs manual review:")
+        print(f"\n{len(skipped)} rerate row(s) could not be matched; needs manual review:")
         for final_name, song_type_raw, old_rating, new_rating in skipped:
             print(f"  - {final_name} ({song_type_raw}): S{old_rating} -> S{new_rating}")
 
