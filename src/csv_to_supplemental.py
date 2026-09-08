@@ -27,27 +27,30 @@ are already used as the CSV column delimiter.
 Usage:
     python src/csv_to_supplemental.py data/csv/new_songs.csv supplemental_songs.json
 """
-
 import csv
 import json
 import sys
-from collections import defaultdict
 from pathlib import Path
-
 
 def build_supplemental_songs(csv_path: Path) -> list[dict]:
     if not csv_path.exists():
-        return []
+        return [] # Return empty list rather than crash
 
     songs = []
     skipped = []
 
+    # Main-loop, one iteration per CSV row
     with open(csv_path, encoding="utf-8-sig") as f:
+        # DictReader turns each row into a dict keyed by the CSV header names
+        # i.e., row["songID"], row["songName"]
         reader = csv.DictReader(f)
 
         for row in reader:
+            # Validating songID
+            # A row looks like: { "songID": "9001", "songName": "Example New Song", ... }
             song_id_raw = row.get("songID", "").strip()
 
+            # Blank songID rows are silently skipped
             if not song_id_raw:
                 continue
 
@@ -61,12 +64,17 @@ def build_supplemental_songs(csv_path: Path) -> list[dict]:
             difficulty_raw = row.get("difficulty", "").strip()
             difficulties = []
 
+            # Parsing the semicolon-seperated difficulties
+            # for...else construct
+            # else block runs only if the for loop finished ALL its iterations normally
             for level_raw in difficulty_raw.split(";"):
                 level_raw = level_raw.strip()
 
-                if not level_raw:
+                if not level_raw: # difficulty was blank
                     continue
 
+                # If any single difficulty value fails to parse as an integer,
+                # it records the failure in skipped and breaks
                 try:
                     difficulties.append(int(level_raw))
                 except ValueError:
@@ -75,6 +83,7 @@ def build_supplemental_songs(csv_path: Path) -> list[dict]:
                     )
                     break
             else:
+                # Building song entry, based on dict shape of songlist_phoenix.json
                 song_entry = {
                     "songID": song_id,
                     "songName": row.get("songName", "").strip(),
@@ -96,6 +105,8 @@ def build_supplemental_songs(csv_path: Path) -> list[dict]:
                     "version": row.get("version", "").strip(),
                 }
 
+                # Attaching the two optional note fields
+                # Both only get added to the dict if non-empty
                 note = row.get("note", "").strip()
 
                 if note:
@@ -106,10 +117,12 @@ def build_supplemental_songs(csv_path: Path) -> list[dict]:
                 if displayed_note:
                     song_entry["displayedNote"] = displayed_note
 
-                songs.append(song_entry)
+                songs.append(song_entry) # Finished entry joins the songs list
 
+    # After the loop, reporting and sorting
+    # Currently, only the invalid-difficulty-value case populates skipped
     if skipped:
-        print(f"\n{len(skipped)} song(s) skipped — needs manual review:")
+        print(f"\n{len(skipped)} song(s) skipped; needs manual review:")
 
         for song_id, reason in skipped:
             print(f"  - songID {song_id}: {reason}")
@@ -117,7 +130,6 @@ def build_supplemental_songs(csv_path: Path) -> list[dict]:
     songs.sort(key=lambda s: s["songID"])
 
     return songs
-
 
 def main():
     if len(sys.argv) != 3:
@@ -132,7 +144,6 @@ def main():
         json.dump(songs, f, indent=2, ensure_ascii=False)
 
     print(f"\nWrote {len(songs)} song(s) to {output_path}")
-
 
 if __name__ == "__main__":
     main()
