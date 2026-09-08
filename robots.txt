@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://joshua-fonseca.github.io/pump-it-up-difficulty-matcher/sitemap.xml
