@@ -250,7 +250,7 @@ the build pipeline or the frontend.
 
 ## Links
 
-* Project homepage: `https://piudiffmatcher.site/`
+* Project homepage: `https://piusongmatcher.site/`
 * Repository: `https://github.com/joshua-fonseca/pump-it-up-difficulty-matcher`
 * Base dataset source: [pugkung/piutool](https://github.com/pugkung/piutool)
 * Chart rerate data: [r/PumpItUp rerates and removals post](https://www.reddit.com/r/PumpItUp/comments/1tji3wg/pump_it_up_phoenix_2_chart_rerates_and_removals/), [original Google Sheet](https://docs.google.com/spreadsheets/d/1MhrFJf9Mnp5i5-cqWgeRvqcJZmzlDPwheLdQL4S1vaQ/edit?gid=1983447790#gid=1983447790), [processed sheet used by this project](https://docs.google.com/spreadsheets/d/1DUMNMJJqfnBMCe_tdNmKEJyV_JGmkqqVBelZW0WIfSo/edit?usp=sharing) (also the source for hand-entered new songs)
